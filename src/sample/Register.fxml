@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="main_frame" prefHeight="450.0" prefWidth="300.0" style="-fx-background-color: #fff1d3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXButton layoutX="86.0" layoutY="360.0" prefHeight="44.0" prefWidth="132.0" ripplerFill="WHITE" style="-fx-background-radius: 30; -fx-background-color: #542d2d;" text="NEXT" textFill="WHITE">
+         <font>
+            <Font name="Product Sans Bold" size="20.0" />
+         </font>
+      </JFXButton>
+      <AnchorPane layoutX="33.0" layoutY="271.0" prefHeight="67.0" prefWidth="239.0" style="-fx-background-color: #ffb600; -fx-background-radius: 40;">
+         <children>
+            <JFXTextField alignment="CENTER" focusColor="WHITE" labelFloat="true" layoutX="35.0" layoutY="18.0" prefHeight="31.0" prefWidth="169.0" promptText="Input your name here" unFocusColor="#391616">
+               <font>
+                  <Font name="Product Sans Bold" size="14.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
