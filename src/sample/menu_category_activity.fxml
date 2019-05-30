@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="450.0" prefWidth="300.0" style="-fx-background-color: #fff1d3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.MenuCategoryActivity">
+   <children>
+      <JFXToolbar prefHeight="60.0" prefWidth="310.0">
+         <top>
+            <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="300.0" style="-fx-background-color: #ffb600;" BorderPane.alignment="CENTER">
+               <children>
+                  <JFXButton contentDisplay="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 40;" text=" " textFill="#2f2f2f">
+                     <graphic>
+                        <MaterialDesignIconView fill="#542d2d" glyphName="ARROW_LEFT" size="24" />
+                     </graphic>
+                  </JFXButton>
+                  <Text fill="#542d2d" strokeType="OUTSIDE" strokeWidth="0.0" text="Menu Juice" wrappingWidth="196.3199920654297">
+                     <HBox.margin>
+                        <Insets left="16.0" />
+                     </HBox.margin>
+                     <font>
+                        <Font name="Product Sans Bold" size="16.0" />
+                     </font>
+                  </Text>
+                  <JFXButton contentDisplay="CENTER" prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 40;" text=" " textAlignment="CENTER" textFill="#2f2f2f">
+                     <graphic>
+                        <MaterialDesignIconView fill="#542d2d" glyphName="BASKET" size="24" />
+                     </graphic>
+                  </JFXButton>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="8.0" left="8.0" right="8.0" top="8.0" />
+               </padding>
+            </HBox>
+         </top>
+      </JFXToolbar>
+      <HBox layoutX="5.0" layoutY="60.0" prefHeight="30.0" prefWidth="300.0">
+         <children>
+            <JFXButton prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;" text="Juice" textFill="#522c2c" />
+            <JFXButton prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;" text="Food" textFill="#522c2c">
+               <HBox.margin>
+                  <Insets left="8.0" right="8.0" />
+               </HBox.margin>
+            </JFXButton>
+            <JFXButton prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;" text="Coffee" textFill="#522c2c" />
+         </children>
+         <padding>
+            <Insets top="16.0" />
+         </padding>
+      </HBox>
+      <AnchorPane layoutY="103.0" prefHeight="350.0" prefWidth="310.0" />
+   </children>
+</AnchorPane>
