@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXListView?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane prefHeight="350.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.JuiceActivity">
+   <children>
+      <HBox prefHeight="40.0" prefWidth="300.0">
+         <children>
+            <JFXButton prefHeight="40.0" prefWidth="150.0" text="Rating" textFill="#522c2c" />
+            <JFXButton contentDisplay="RIGHT" prefHeight="40.0" prefWidth="150.0" text="Price" textFill="#522c2c">
+               <graphic>
+                  <MaterialDesignIconView fill="#522c2c" glyphName="MENU_DOWN" size="24" />
+               </graphic>
+            </JFXButton>
+         </children>
+      </HBox>
+      <JFXListView layoutY="40.0" prefHeight="310.0" prefWidth="300.0" />
+      <AnchorPane layoutX="19.0" layoutY="296.0" prefHeight="40.0" prefWidth="262.0" style="-fx-background-color: #ffb600; -fx-background-radius: 50;">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="262.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 100k" textAlignment="CENTER" wrappingWidth="87.13671875">
+                     <font>
+                        <Font name="Product Sans Bold" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="1 Items" wrappingWidth="102.13671875" />
+                  <JFXButton prefHeight="40.0" prefWidth="124.0" style="-fx-background-radius: 50;" text="Pay" textFill="WHITE">
+                     <font>
+                        <Font name="Product Sans Bold" size="14.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
