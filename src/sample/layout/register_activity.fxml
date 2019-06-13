@@ -5,9 +5,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="main_frame" prefHeight="450.0" prefWidth="300.0" style="-fx-background-color: #fff1d3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="main_frame" prefHeight="450.0" prefWidth="300.0" style="-fx-background-color: #fff1d3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.RegisterControler">
    <children>
-      <JFXButton layoutX="86.0" layoutY="360.0" prefHeight="44.0" prefWidth="132.0" ripplerFill="WHITE" style="-fx-background-radius: 30; -fx-background-color: #542d2d;" text="NEXT" textFill="WHITE">
+      <JFXButton fx:id="btn_next" layoutX="87.0" layoutY="359.0" prefHeight="44.0" prefWidth="132.0" ripplerFill="WHITE" style="-fx-background-radius: 30; -fx-background-color: #ffb600;" text="NEXT" textFill="#522c2c">
          <font>
             <Font name="Product Sans Bold" size="20.0" />
          </font>
