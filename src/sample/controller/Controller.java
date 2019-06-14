@@ -20,7 +20,6 @@ public class Controller implements Initializable, UiLoaderCallback {
         loadUI("/sample/layout/register_activity.fxml", main_frame);
     }
 
-
     @Override
     public void loadUI(String layout, AnchorPane pane) {
         try {
