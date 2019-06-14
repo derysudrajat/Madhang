@@ -11,7 +11,7 @@
 
 <AnchorPane fx:id="main_frame" prefHeight="390.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MenuActivity">
    <children>
-      <JFXListView layoutY="96.0" prefHeight="295.0" prefWidth="300.0" />
+      <JFXListView fx:id="list_view" layoutY="96.0" prefHeight="295.0" prefWidth="300.0"/>
       <HBox layoutY="56.0" prefHeight="40.0" prefWidth="300.0">
          <children>
             <JFXButton fx:id="btn_rating" prefHeight="40.0" prefWidth="150.0" text="Rating" textFill="#522c2c" />
