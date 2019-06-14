@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="list_frame" prefHeight="180.0" prefWidth="260.0"
+            style="-fx-border-radius: 30; -fx-background-radius: 30;" xmlns="http://javafx.com/javafx/8.0.171">
+    <children>
+        <HBox prefHeight="180.0" prefWidth="260.0">
+            <children>
+                <AnchorPane prefHeight="164.0" prefWidth="120.0"
+                            style="-fx-background-radius: 30; -fx-background-color: #616161;">
+                    <HBox.margin>
+                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                    </HBox.margin>
+                </AnchorPane>
+                <VBox prefHeight="200.0" prefWidth="140.0">
+                    <children>
+                        <AnchorPane prefHeight="192.0" prefWidth="147.0">
+                            <children>
+                                <Text fx:id="txt_name" layoutX="4.0" layoutY="26.0" strokeType="OUTSIDE"
+                                      strokeWidth="0.0" text="Nama Makanan" wrappingWidth="127.99999618437141">
+                                    <font>
+                                        <Font name="Product Sans Bold" size="14.0"/>
+                                    </font>
+                                </Text>
+                                <Text fx:id="txt_desc" layoutX="5.0" layoutY="43.0" strokeType="OUTSIDE"
+                                      strokeWidth="0.0"
+                                      text="ini adalah deskripsi dari makanan bro ini adalah deskripsi dari makanan bro"
+                                      wrappingWidth="134.0000000037253">
+                                    <font>
+                                        <Font name="Product Sans" size="12.0"/>
+                                    </font>
+                                </Text>
+                                <HBox alignment="CENTER" layoutX="4.0" layoutY="101.0" prefHeight="19.0"
+                                      prefWidth="120.0">
+                                    <children>
+                                        <Text fill="#616161" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp."
+                                              wrappingWidth="20.0">
+                                            <font>
+                                                <Font name="System Bold" size="12.0"/>
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="txt_price" strokeType="OUTSIDE" strokeWidth="0.0" text="9K"
+                                              wrappingWidth="30.0">
+                                            <font>
+                                                <Font name="Product Sans Bold" size="14.0"/>
+                                            </font>
+                                        </Text>
+                                        <Text fill="#616161" strokeType="OUTSIDE" strokeWidth="0.0" text="/"
+                                              wrappingWidth="10.0">
+                                            <font>
+                                                <Font name="Product Sans Bold" size="12.0"/>
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="txt_rate" strokeType="OUTSIDE" strokeWidth="0.0" text="4.8"
+                                              textAlignment="RIGHT" wrappingWidth="30.0">
+                                            <font>
+                                                <Font name="System Bold" size="14.0"/>
+                                            </font>
+                                        </Text>
+                                        <MaterialDesignIconView fill="#616161" glyphName="STAR"/>
+                                    </children>
+                                </HBox>
+                                <AnchorPane layoutX="3.0" layoutY="126.0" prefHeight="40.0" prefWidth="120.0"
+                                            style="-fx-background-color: #fff1d3; -fx-background-radius: 50;">
+                                    <children>
+                                        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="116.0">
+                                            <children>
+                                                <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0"
+                                                      text="Add to cart" textAlignment="CENTER" wrappingWidth="82.0">
+                                                    <font>
+                                                        <Font name="Product Sans Bold" size="12.0"/>
+                                                    </font>
+                                                </Text>
+                                                <JFXButton fx:id="btn_add" alignment="CENTER" contentDisplay="CENTER"
+                                                           prefHeight="40.0" prefWidth="40.0"
+                                                           style="-fx-background-radius: 50; -fx-background-color: #fff1d3;"
+                                                           text=" " textAlignment="CENTER" textFill="#522c2c">
+                                                    <font>
+                                                        <Font name="Product Sans Bold" size="12.0"/>
+                                                    </font>
+                                                    <graphic>
+                                                        <MaterialDesignIconView fx:id="btn_add_icon" fill="#522c2c"
+                                                                                glyphName="PLUS" size="24"/>
+                                                    </graphic>
+                                                </JFXButton>
+                                            </children>
+                                        </HBox>
+                                    </children>
+                                </AnchorPane>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>
