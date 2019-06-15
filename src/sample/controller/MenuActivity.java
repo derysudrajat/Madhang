@@ -5,26 +5,46 @@ import com.jfoenix.controls.JFXListView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+import sample.adapter.FoodAdapter;
 import sample.entity.Foods;
+import sample.helper.NotifUpdaterCallback;
+import sample.helper.UiLoaderCallback;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MenuActivity implements Initializable, UiLoaderCallback {
+public class MenuActivity implements Initializable, UiLoaderCallback, EventHandler, NotifUpdaterCallback {
 
     @FXML
     private AnchorPane main_frame;
+    @FXML
+    private Text activity_title;
+    @FXML
+    private JFXButton btn_back;
+    @FXML
+    private JFXButton btn_cart;
+    @FXML
+    private JFXButton btn_pay;
+    @FXML
+    private AnchorPane notif_pane;
+    @FXML
+    private Text txt_notif;
     @FXML
     private JFXButton btn_rating;
     @FXML
     private JFXButton btn_price;
     @FXML
     private MaterialDesignIconView icon_price;
-    @FXML
-    private JFXButton btn_pay;
     @FXML
     private JFXButton btn_juice;
     @FXML
@@ -33,6 +53,8 @@ public class MenuActivity implements Initializable, UiLoaderCallback {
     private JFXListView<Foods> list_view;
     @FXML
     private JFXButton btn_coffee;
+    private int notifCount;
+    private Foods foods;
 
     private ObservableList<Foods> foodsObservableList;
 
@@ -42,41 +64,37 @@ public class MenuActivity implements Initializable, UiLoaderCallback {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        btn_price.setOnAction(event -> {
-            changeGlyph();
-        });
+        btn_back.setOnAction(this::handle);
+        btn_cart.setOnAction(this::handle);
+        btn_pay.setOnAction(this::handle);
+        notifCount = 0;
+        btn_price.setOnAction(event -> changeGlyph());
         buttonSelected(btn_juice, btn_coffee, btn_food);
         btn_juice.setOnAction(event -> {
             buttonSelected(btn_juice, btn_coffee, btn_food);
             loadJuice();
-            list_view.setItems(foodsObservableList);
-            list_view.setCellFactory(foodListView -> new FoodListCell());
+            refreshData();
         });
         btn_coffee.setOnAction(event -> {
             buttonSelected(btn_coffee, btn_food, btn_juice);
             loadCoffee();
-            list_view.setItems(foodsObservableList);
-            list_view.setCellFactory(foodListView -> new FoodListCell());
+            refreshData();
         });
         btn_food.setOnAction(event -> {
             buttonSelected(btn_food, btn_juice, btn_coffee);
             loadFood();
-            list_view.setItems(foodsObservableList);
-            list_view.setCellFactory(foodListView -> new FoodListCell());
+            refreshData();
         });
-        list_view.setItems(foodsObservableList);
-        list_view.setCellFactory(foodListView -> new FoodListCell());
-
-
+        refreshData();
     }
 
-    void buttonSelected(JFXButton btnActive, JFXButton btnNon1, JFXButton btnNon2){
+    private void buttonSelected(JFXButton btnActive, JFXButton btnNon1, JFXButton btnNon2) {
         btnActive.setStyle("-fx-background-color:#ffb600;-fx-background-radius:50");
         btnNon1.setStyle("-fx-background-radius:50;-fx-border-radius:50;-fx-border-color:#ffb600");
         btnNon2.setStyle("-fx-background-radius:50;-fx-border-radius:50;-fx-border-color:#ffb600");
     }
 
-    void loadJuice() {
+    private void loadJuice() {
         foodsObservableList = FXCollections.observableArrayList();
         foodsObservableList.addAll(
                 new Foods("Jus Tomat", "soto ayam adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
@@ -87,7 +105,7 @@ public class MenuActivity implements Initializable, UiLoaderCallback {
         );
     }
 
-    void loadFood() {
+    private void loadFood() {
         foodsObservableList = FXCollections.observableArrayList();
         foodsObservableList.addAll(
                 new Foods("Soto Ayam", "soto ayam adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
@@ -98,7 +116,7 @@ public class MenuActivity implements Initializable, UiLoaderCallback {
         );
     }
 
-    void loadCoffee() {
+    private void loadCoffee() {
         foodsObservableList = FXCollections.observableArrayList();
         foodsObservableList.addAll(
                 new Foods("Kopi Tomat", "soto ayam adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
@@ -109,7 +127,7 @@ public class MenuActivity implements Initializable, UiLoaderCallback {
         );
     }
 
-    void changeGlyph() {
+    private void changeGlyph() {
         if (icon_price.getGlyphName().equals("MENU_DOWN")) {
             icon_price.setGlyphName("MENU_UP");
         } else {
@@ -117,9 +135,55 @@ public class MenuActivity implements Initializable, UiLoaderCallback {
         }
     }
 
+    private void refreshData() {
+        list_view.setItems(foodsObservableList);
+        list_view.setCellFactory(foodListView -> new FoodAdapter(list_view, this));
+    }
+
+    @Override
+    public void handle(Event event) {
+        EventTarget et = event.getTarget();
+        if (et.equals(btn_back)) {
+            loadUI("/sample/layout/table_choose_activity.fxml", main_frame);
+        }
+        if (et.equals(btn_cart)) {
+            loadUI("/sample/layout/cart_activity.fxml", main_frame);
+        }
+        if (et.equals(btn_pay)) {
+            loadUI("/sample/layout/payment_activity.fxml", main_frame);
+        }
+    }
+
+    @Override
+    public void addItem() {
+        if (notifCount > 0) {
+            notifCount += 1;
+            txt_notif.setText(String.valueOf(notifCount));
+        } else {
+            notif_pane.setVisible(true);
+            notifCount += 1;
+            txt_notif.setText(String.valueOf(notifCount));
+        }
+    }
+
+    @Override
+    public void minItem() {
+        if (notifCount < 2) {
+            notif_pane.setVisible(false);
+            notifCount -= 1;
+        } else {
+            notifCount -= 1;
+            txt_notif.setText(String.valueOf(notifCount));
+        }
+    }
 
     @Override
     public void loadUI(String layout, AnchorPane pane) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource(layout));
+            pane.getChildren().setAll(root);
+        } catch (IOException ignored) {
 
+        }
     }
 }
