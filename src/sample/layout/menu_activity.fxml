@@ -2,58 +2,145 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
+<?import com.jfoenix.controls.JFXToolbar?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="main_frame" prefHeight="390.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.MenuActivity">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="main_frame" prefHeight="450.0" prefWidth="300.0"
+            style="-fx-background-color: #fff1d3;" xmlns="http://javafx.com/javafx/8.0.171"
+            fx:controller="sample.controller.MenuActivity">
    <children>
-      <JFXListView fx:id="list_view" layoutY="96.0" prefHeight="295.0" prefWidth="300.0"/>
-      <HBox layoutY="56.0" prefHeight="40.0" prefWidth="300.0">
+       <VBox prefHeight="450.0" prefWidth="300.0">
          <children>
-            <JFXButton fx:id="btn_rating" prefHeight="40.0" prefWidth="150.0" text="Rating" textFill="#522c2c" />
-            <JFXButton fx:id="btn_price" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="150.0" text="Price" textFill="#522c2c">
-               <graphic>
-                  <MaterialDesignIconView fx:id="icon_price" fill="#522c2c" glyphName="MENU_DOWN" size="24" />
-               </graphic>
-            </JFXButton>
+             <JFXToolbar prefHeight="60.0" prefWidth="300.0">
+                 <top>
+                     <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="300.0"
+                           style="-fx-background-color: #ffb600;" BorderPane.alignment="CENTER">
+                         <children>
+                             <JFXButton fx:id="btn_back" contentDisplay="CENTER" prefHeight="40.0" prefWidth="40.0"
+                                        style="-fx-background-radius: 40;" text=" " textFill="#2f2f2f">
+                                 <graphic>
+                                     <MaterialDesignIconView fill="#542d2d" glyphName="ARROW_LEFT" size="24"/>
+                                 </graphic>
+                             </JFXButton>
+                             <Text fx:id="activity_title" fill="#542d2d" strokeType="OUTSIDE" strokeWidth="0.0"
+                                   text="Book Menu" wrappingWidth="181.3199920654297">
+                                 <HBox.margin>
+                                     <Insets left="16.0"/>
+                                 </HBox.margin>
+                                 <font>
+                                     <Font name="Product Sans Bold" size="16.0"/>
+                                 </font>
+                             </Text>
+                             <AnchorPane prefHeight="50.0" prefWidth="50.0">
+                                 <children>
+                                     <JFXButton fx:id="btn_cart" contentDisplay="CENTER" layoutX="3.0" layoutY="2.0"
+                                                prefHeight="40.0" prefWidth="40.0" style="-fx-background-radius: 40;"
+                                                text=" " textAlignment="CENTER" textFill="#2f2f2f">
+                                         <graphic>
+                                             <MaterialDesignIconView fill="#542d2d" glyphName="BASKET" size="24"/>
+                                         </graphic>
+                                     </JFXButton>
+                                     <AnchorPane fx:id="notif_pane" layoutX="22.0" layoutY="4.0" prefHeight="10.0"
+                                                 prefWidth="10.0"
+                                                 style="-fx-background-color: #fff1d3; -fx-border-color: #542d2d; -fx-background-radius: 50; -fx-border-radius: 50;"
+                                                 visible="false">
+                                         <children>
+                                             <Text fx:id="txt_notif" fill="#542d2d" layoutX="5.0" layoutY="15.0"
+                                                   strokeType="OUTSIDE" strokeWidth="0.0" text="10"
+                                                   textAlignment="RIGHT" AnchorPane.bottomAnchor="0.0"
+                                                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                                   AnchorPane.topAnchor="0.0">
+                                                 <font>
+                                                     <Font name="Product Sans Bold" size="12.0"/>
+                                                 </font>
+                                             </Text>
+                                         </children>
+                                         <padding>
+                                             <Insets left="4.0" right="4.0"/>
+                                         </padding>
+                                     </AnchorPane>
+                                 </children>
+                             </AnchorPane>
+                         </children>
+                         <opaqueInsets>
+                             <Insets/>
+                         </opaqueInsets>
+                         <padding>
+                             <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                         </padding>
+                     </HBox>
+                 </top>
+             </JFXToolbar>
+             <AnchorPane prefHeight="350.0" prefWidth="300.0">
+                 <children>
+                     <JFXListView fx:id="list_view" layoutY="96.0" prefHeight="254.0" prefWidth="300.0"/>
+                     <HBox layoutY="56.0" prefHeight="40.0" prefWidth="300.0">
+                         <children>
+                             <JFXButton fx:id="btn_rating" prefHeight="40.0" prefWidth="150.0" text="Rating"
+                                        textFill="#522c2c"/>
+                             <JFXButton fx:id="btn_price" contentDisplay="RIGHT" prefHeight="40.0" prefWidth="150.0"
+                                        text="Price" textFill="#522c2c">
+                                 <graphic>
+                                     <MaterialDesignIconView fx:id="icon_price" fill="#522c2c" glyphName="MENU_DOWN"
+                                                             size="24"/>
+                                 </graphic>
+                             </JFXButton>
+                         </children>
+                     </HBox>
+                     <HBox layoutX="13.0" layoutY="6.0" prefHeight="43.0" prefWidth="274.0">
+                         <children>
+                             <JFXButton fx:id="btn_juice" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0"
+                                        prefWidth="100.0"
+                                        style="-fx-background-radius: 50; -fx-border-color: #ffb600; -fx-border-radius: 50;"
+                                        text="Juice" textFill="#522c2c"/>
+                             <JFXButton fx:id="btn_food" prefHeight="30.0" prefWidth="100.0"
+                                        style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;"
+                                        text="Food" textFill="#522c2c">
+                                 <HBox.margin>
+                                     <Insets left="8.0" right="8.0"/>
+                                 </HBox.margin>
+                             </JFXButton>
+                             <JFXButton fx:id="btn_coffee" prefHeight="30.0" prefWidth="100.0"
+                                        style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;"
+                                        text="Coffee" textFill="#522c2c"/>
+                         </children>
+                         <padding>
+                             <Insets top="16.0"/>
+                         </padding>
+                     </HBox>
+                 </children>
+             </AnchorPane>
+             <AnchorPane prefHeight="40.0" prefWidth="262.0"
+                         style="-fx-background-color: #ffb600; -fx-background-radius: 20 20 0 0;">
+                 <children>
+                     <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="300.0">
+                         <children>
+                             <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 100k"
+                                   textAlignment="CENTER" wrappingWidth="105.13671875">
+                                 <font>
+                                     <Font name="Product Sans Bold" size="14.0"/>
+                                 </font>
+                             </Text>
+                             <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0" text="1 Items"
+                                   wrappingWidth="115.13671875"/>
+                             <JFXButton fx:id="btn_pay" prefHeight="40.0" prefWidth="124.0"
+                                        style="-fx-background-radius: 50;" text="Pay" textFill="#522c2c">
+                                 <font>
+                                     <Font name="Product Sans Bold" size="14.0"/>
+                                 </font>
+                             </JFXButton>
+                         </children>
+                     </HBox>
+                 </children>
+             </AnchorPane>
          </children>
-      </HBox>
-      <AnchorPane layoutX="19.0" layoutY="327.0" prefHeight="40.0" prefWidth="262.0" style="-fx-background-color: #ffb600; -fx-background-radius: 50;">
-         <children>
-            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="262.0">
-               <children>
-                  <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp. 100k" textAlignment="CENTER" wrappingWidth="87.13671875">
-                     <font>
-                        <Font name="Product Sans Bold" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0" text="1 Items" wrappingWidth="102.13671875" />
-                  <JFXButton fx:id="btn_pay" prefHeight="40.0" prefWidth="124.0" style="-fx-background-radius: 50;" text="Pay" textFill="#522c2c">
-                     <font>
-                        <Font name="Product Sans Bold" size="14.0" />
-                     </font>
-                  </JFXButton>
-               </children>
-            </HBox>
-         </children>
-      </AnchorPane>
-      <HBox layoutX="13.0" layoutY="6.0" prefHeight="43.0" prefWidth="274.0">
-         <children>
-            <JFXButton fx:id="btn_juice" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 50; -fx-border-color: #ffb600; -fx-border-radius: 50;" text="Juice" textFill="#522c2c" />
-            <JFXButton fx:id="btn_food" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;" text="Food" textFill="#522c2c">
-               <HBox.margin>
-                  <Insets left="8.0" right="8.0" />
-               </HBox.margin>
-            </JFXButton>
-            <JFXButton fx:id="btn_coffee" prefHeight="30.0" prefWidth="100.0" style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;" text="Coffee" textFill="#522c2c" />
-         </children>
-         <padding>
-            <Insets top="16.0" />
-         </padding>
-      </HBox>
+       </VBox>
    </children>
 </AnchorPane>
