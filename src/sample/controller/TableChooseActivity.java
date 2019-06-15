@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import sample.helper.UiLoaderCallback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -55,7 +56,7 @@ public class TableChooseActivity implements Initializable, UiLoaderCallback, Eve
     @Override
     public void handle(Event event) {
         if (event.getTarget().equals(btn_done)){
-            loadUI("/sample/layout/menu_category_activity.fxml", main_frame);
+            loadUI("/sample/layout/menu_activity.fxml", main_frame);
         }
         if (event.getTarget().equals(btn_back)){
             loadUI("/sample/layout/register_activity.fxml",main_frame);
