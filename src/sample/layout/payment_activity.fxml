@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXToolbar?>
+<?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="main_frame" prefHeight="450.0" prefWidth="300.0"
+            xmlns="http://javafx.com/javafx/8.0.171" fx:controller="sample.controller.PaymentActivity">
+    <children>
+        <StackPane fx:id="main_stack_pane" prefHeight="450.0" prefWidth="300.0">
+            <children>
+                <VBox prefHeight="450.0" prefWidth="300.0">
+                    <children>
+                        <JFXToolbar prefHeight="60.0" prefWidth="300.0">
+                            <top>
+                                <HBox alignment="CENTER_LEFT" prefHeight="60.0" prefWidth="300.0"
+                                      style="-fx-background-color: #ffb600;" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <JFXButton fx:id="btn_back" contentDisplay="CENTER" prefHeight="40.0"
+                                                   prefWidth="40.0" style="-fx-background-radius: 40;" text=" "
+                                                   textFill="#2f2f2f">
+                                            <graphic>
+                                                <MaterialDesignIconView fill="#542d2d" glyphName="ARROW_LEFT"
+                                                                        size="24"/>
+                                            </graphic>
+                                        </JFXButton>
+                                        <Text fill="#542d2d" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment"
+                                              wrappingWidth="181.3199920654297">
+                                            <HBox.margin>
+                                                <Insets left="16.0"/>
+                                            </HBox.margin>
+                                            <font>
+                                                <Font name="Product Sans Bold" size="16.0"/>
+                                            </font>
+                                        </Text>
+                                    </children>
+                                    <opaqueInsets>
+                                        <Insets/>
+                                    </opaqueInsets>
+                                    <padding>
+                                        <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                                    </padding>
+                                </HBox>
+                            </top>
+                        </JFXToolbar>
+                        <AnchorPane prefHeight="89.0" prefWidth="284.0"
+                                    style="-fx-background-color: #ffb600; -fx-background-radius: 10;">
+                            <VBox.margin>
+                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                            </VBox.margin>
+                            <children>
+                                <VBox layoutX="5.0" layoutY="2.0" prefHeight="94.0" prefWidth="272.0" spacing="10.0">
+                                    <children>
+                                        <Text fx:id="customer_name" fill="#522c2c" strokeType="OUTSIDE"
+                                              strokeWidth="0.0" text="Nama">
+                                            <font>
+                                                <Font name="Product Sans Bold" size="18.0"/>
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="total_items" fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0"
+                                              text="10 Items">
+                                            <font>
+                                                <Font name="Product Sans" size="14.0"/>
+                                            </font>
+                                        </Text>
+                                        <Text fx:id="total_price" fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0"
+                                              text="Rp. 50k"/>
+                                    </children>
+                                    <padding>
+                                        <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
+                                    </padding>
+                                </VBox>
+                            </children>
+                        </AnchorPane>
+                        <AnchorPane prefWidth="284.0" style="-fx-background-color: #ffb600; -fx-background-radius: 10;">
+                            <VBox.margin>
+                                <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
+                            </VBox.margin>
+                            <children>
+                                <Text fill="#522c2c" layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE"
+                                      strokeWidth="0.0" text="List Items">
+                                    <font>
+                                        <Font name="Product Sans Bold" size="18.0"/>
+                                    </font>
+                                </Text>
+                                <Text fx:id="list_items" fill="#522c2c" layoutX="14.0" layoutY="51.0"
+                                      strokeType="OUTSIDE" strokeWidth="0.0"
+                                      text="Mendoan                                                  @2                     Mendoan                                                  @2                     Mendoan                                                  @2                     Mendoan                                                  @2                     Mendoan                                                  @2                     Mendoan                                                  @2                     Mendoan                                                  @2                     Mendoan                                                  @2                     Mendoan                                                  @2                     Mendoan                                                  @2                     Mendoan                                                  @2                     "
+                                      wrappingWidth="258.12799072265625">
+                                    <font>
+                                        <Font name="Product Sans" size="12.0"/>
+                                    </font>
+                                </Text>
+                            </children>
+                            <padding>
+                                <Insets bottom="4.0" left="4.0" right="4.0" top="4.0"/>
+                            </padding>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="43.0" prefWidth="300.0">
+                            <children>
+                                <JFXButton fx:id="btn_make_order" layoutX="179.0" layoutY="2.0" prefHeight="38.0"
+                                           prefWidth="113.0"
+                                           style="-fx-background-color: #ffb600; -fx-background-radius: 50;"
+                                           text="Make Order" textFill="#522c2c">
+                                    <font>
+                                        <Font name="Product Sans Bold" size="14.0"/>
+                                    </font>
+                                </JFXButton>
+                            </children>
+                        </AnchorPane>
+                    </children>
+                </VBox>
+            </children>
+        </StackPane>
+    </children>
+</AnchorPane>
