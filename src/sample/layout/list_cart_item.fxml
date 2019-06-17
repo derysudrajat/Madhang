@@ -14,8 +14,7 @@
     <children>
         <HBox prefHeight="130.0" prefWidth="260.0">
             <children>
-                <AnchorPane prefHeight="114.0" prefWidth="82.0"
-                            style="-fx-background-radius: 30; -fx-background-color: #616161;">
+                <AnchorPane fx:id="img_frame" prefHeight="114.0" prefWidth="82.0" style="-fx-background-radius: 30;">
                     <HBox.margin>
                         <Insets bottom="8.0" left="8.0" right="8.0" top="8.0"/>
                     </HBox.margin>

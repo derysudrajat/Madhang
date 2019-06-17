@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -80,7 +81,8 @@
              </JFXToolbar>
              <AnchorPane prefHeight="350.0" prefWidth="300.0">
                  <children>
-                     <JFXListView fx:id="list_view" layoutY="96.0" prefHeight="254.0" prefWidth="300.0"/>
+                     <JFXListView fx:id="list_view" layoutY="96.0" prefHeight="254.0" prefWidth="300.0"
+                                  stylesheets="@../style/listStyle.css"/>
                      <HBox layoutY="56.0" prefHeight="40.0" prefWidth="300.0">
                          <children>
                              <JFXButton fx:id="btn_rating" prefHeight="40.0" prefWidth="150.0" text="Rating"
@@ -143,4 +145,7 @@
          </children>
        </VBox>
    </children>
+    <stylesheets>
+        <URL value="@/sample/style/listStyle.css"/>
+    </stylesheets>
 </AnchorPane>

@@ -5,7 +5,10 @@ import com.jfoenix.controls.JFXListView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
@@ -19,6 +22,8 @@ import java.util.ResourceBundle;
 public class CartAdapter extends ListCell<Foods> implements Initializable {
     @FXML
     private AnchorPane list_frame;
+    @FXML
+    private AnchorPane img_frame;
     @FXML
     private Text txt_name;
     @FXML
@@ -56,6 +61,14 @@ public class CartAdapter extends ListCell<Foods> implements Initializable {
                     e.printStackTrace();
                 }
             }
+            Rectangle mRec = new Rectangle(0, 0, 80, 110);
+            mRec.setArcHeight(20.0);
+            mRec.setArcWidth(20.0);
+            ImagePattern pat = new ImagePattern(
+                    new Image("/sample/mamam.jpg", 80, 110, false, false)
+            );
+            mRec.setFill(pat);
+            img_frame.getChildren().add(mRec);
             txt_name.setText(item.getName());
             txt_price.setText(item.getPrice() + "K");
             setText(null);

@@ -7,7 +7,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListCell;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import sample.controller.MenuActivity;
 import sample.helper.NotifUpdaterCallback;
@@ -21,6 +27,8 @@ import java.util.ResourceBundle;
 public class FoodAdapter extends ListCell<Foods> implements Initializable {
     @FXML
     private AnchorPane list_frame;
+    @FXML
+    private AnchorPane img_frame;
     @FXML
     private Text txt_name;
     @FXML
@@ -61,6 +69,14 @@ public class FoodAdapter extends ListCell<Foods> implements Initializable {
                     e.printStackTrace();
                 }
             }
+            Rectangle rectangle = new Rectangle(0, 0, 115, 160);
+            rectangle.setArcHeight(20.0);
+            rectangle.setArcWidth(20.0);
+            ImagePattern pattern = new ImagePattern(
+                    new Image("/sample/mamam.jpg", 115, 160, false, false)
+            );
+            rectangle.setFill(pattern);
+            img_frame.getChildren().add(rectangle);
             txt_name.setText(foods.getName());
             txt_desc.setText(foods.getDesc());
             txt_price.setText(foods.getPrice() + "K");
