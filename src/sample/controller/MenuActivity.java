@@ -46,20 +46,23 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
     @FXML
     private MaterialDesignIconView icon_price;
     @FXML
-    private JFXButton btn_juice;
-    @FXML
     private JFXButton btn_food;
     @FXML
-    private JFXListView<Foods> list_view;
+    private JFXButton btn_snacks;
+    @FXML
+    private JFXButton btn_juice;
     @FXML
     private JFXButton btn_coffee;
+    @FXML
+    private JFXListView<Foods> list_view;
+
     private int notifCount;
     private Foods foods;
 
     private ObservableList<Foods> foodsObservableList;
 
     public MenuActivity() {
-        loadJuice();
+        loadFood();
     }
 
     @Override
@@ -69,29 +72,35 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
         btn_pay.setOnAction(this::handle);
         notifCount = 0;
         btn_price.setOnAction(event -> changeGlyph());
-        buttonSelected(btn_juice, btn_coffee, btn_food);
+        buttonSelected(btn_food, btn_juice, btn_coffee, btn_snacks);
         btn_juice.setOnAction(event -> {
-            buttonSelected(btn_juice, btn_coffee, btn_food);
+            buttonSelected(btn_juice, btn_coffee, btn_food, btn_snacks);
             loadJuice();
             refreshData();
         });
         btn_coffee.setOnAction(event -> {
-            buttonSelected(btn_coffee, btn_food, btn_juice);
+            buttonSelected(btn_coffee, btn_food, btn_juice, btn_snacks);
             loadCoffee();
             refreshData();
         });
         btn_food.setOnAction(event -> {
-            buttonSelected(btn_food, btn_juice, btn_coffee);
+            buttonSelected(btn_food, btn_juice, btn_coffee, btn_snacks);
             loadFood();
+            refreshData();
+        });
+        btn_snacks.setOnAction(event -> {
+            buttonSelected(btn_snacks, btn_food, btn_juice, btn_coffee);
+            loadSnacks();
             refreshData();
         });
         refreshData();
     }
 
-    private void buttonSelected(JFXButton btnActive, JFXButton btnNon1, JFXButton btnNon2) {
+    private void buttonSelected(JFXButton btnActive, JFXButton btnNon1, JFXButton btnNon2, JFXButton btnNon3) {
         btnActive.setStyle("-fx-background-color:#ffb600;-fx-background-radius:50");
         btnNon1.setStyle("-fx-background-radius:50;-fx-border-radius:50;-fx-border-color:#ffb600");
         btnNon2.setStyle("-fx-background-radius:50;-fx-border-radius:50;-fx-border-color:#ffb600");
+        btnNon3.setStyle("-fx-background-radius:50;-fx-border-radius:50;-fx-border-color:#ffb600");
     }
 
     private void loadJuice() {
@@ -102,6 +111,17 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
                 new Foods("Jus Kebo", "soto kebo adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
                 new Foods("Jus Pitik", "soto pitik adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
                 new Foods("Jus Sapi", "soto sapi adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5)
+        );
+    }
+
+    private void loadSnacks() {
+        foodsObservableList = FXCollections.observableArrayList();
+        foodsObservableList.addAll(
+                new Foods("Snack Tomat", "soto ayam adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
+                new Foods("Snack Kambing", "soto Kambing adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
+                new Foods("Snack Kebo", "soto kebo adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
+                new Foods("Snack Pitik", "soto pitik adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
+                new Foods("Snack Sapi", "soto sapi adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5)
         );
     }
 
