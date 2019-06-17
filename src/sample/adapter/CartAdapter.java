@@ -5,21 +5,21 @@ import com.jfoenix.controls.JFXListView;
 import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.image.Image;
+import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.control.ListCell;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.fxml.Initializable;
-import javafx.scene.control.ListCell;
-import javafx.scene.layout.AnchorPane;
 import sample.entity.Foods;
+import sample.helper.ImageLoaderCallback;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class CartAdapter extends ListCell<Foods> implements Initializable {
+public class CartAdapter extends ListCell<Foods> implements Initializable, ImageLoaderCallback {
     @FXML
     private AnchorPane list_frame;
     @FXML
@@ -61,24 +61,39 @@ public class CartAdapter extends ListCell<Foods> implements Initializable {
                     e.printStackTrace();
                 }
             }
-            Rectangle mRec = new Rectangle(0, 0, 80, 110);
-            mRec.setArcHeight(20.0);
-            mRec.setArcWidth(20.0);
-            ImagePattern pat = new ImagePattern(
-                    new Image("/sample/mamam.jpg", 80, 110, false, false)
-            );
-            mRec.setFill(pat);
-            img_frame.getChildren().add(mRec);
+            String url = "/sample/res/juice/jusjeruk.png";
+            img_frame.getChildren().add(loadImage(url));
             txt_name.setText(item.getName());
             txt_price.setText(item.getPrice() + "K");
             setText(null);
             setGraphic(list_frame);
         }
-
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
     }
+
+    @Override
+    public ImageView loadImage(String url) {
+        ImageView imgResult = new ImageView(url);
+        double newMeasure =
+                (imgResult.getImage().getWidth() < imgResult.getImage().getHeight()) ?
+                        imgResult.getImage().getWidth() :
+                        imgResult.getImage().getHeight();
+        double x = (imgResult.getImage().getWidth() - newMeasure) / 2;
+        double y = (imgResult.getImage().getHeight() - newMeasure) / 2;
+        Rectangle2D recRatio = new Rectangle2D(x, y, newMeasure, newMeasure);
+        Rectangle recRaduis = new Rectangle(0, 0, 80, 110);
+        recRaduis.setArcHeight(20.0);
+        recRaduis.setArcWidth(20.0);
+        imgResult.setViewport(recRatio);
+        imgResult.setClip(recRaduis);
+        imgResult.setFitWidth(80);
+        imgResult.setFitHeight(110);
+        imgResult.setSmooth(true);
+        return imgResult;
+    }
+
 }

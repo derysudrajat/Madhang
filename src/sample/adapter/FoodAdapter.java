@@ -6,25 +6,22 @@ import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.ListCell;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import sample.controller.MenuActivity;
-import sample.helper.NotifUpdaterCallback;
 import sample.entity.Foods;
-
+import sample.helper.ImageLoaderCallback;
+import sample.helper.NotifUpdaterCallback;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FoodAdapter extends ListCell<Foods> implements Initializable {
+public class FoodAdapter extends ListCell<Foods> implements Initializable, ImageLoaderCallback {
     @FXML
     private AnchorPane list_frame;
     @FXML
@@ -59,6 +56,7 @@ public class FoodAdapter extends ListCell<Foods> implements Initializable {
             setText(null);
             setGraphic(null);
         } else {
+
             if (mLLoader == null) {
                 mLLoader = new FXMLLoader(getClass().getResource("/sample/layout/list_cell_item.fxml"));
                 mLLoader.setController(this);
@@ -69,14 +67,8 @@ public class FoodAdapter extends ListCell<Foods> implements Initializable {
                     e.printStackTrace();
                 }
             }
-            Rectangle rectangle = new Rectangle(0, 0, 115, 160);
-            rectangle.setArcHeight(20.0);
-            rectangle.setArcWidth(20.0);
-            ImagePattern pattern = new ImagePattern(
-                    new Image("/sample/mamam.jpg", 115, 160, false, false)
-            );
-            rectangle.setFill(pattern);
-            img_frame.getChildren().add(rectangle);
+            String path = "/sample/res/food/miegoreng.jpg";
+            img_frame.getChildren().add(loadImage(path));
             txt_name.setText(foods.getName());
             txt_desc.setText(foods.getDesc());
             txt_price.setText(foods.getPrice() + "K");
@@ -117,5 +109,26 @@ public class FoodAdapter extends ListCell<Foods> implements Initializable {
             }
 
         });
+    }
+
+
+    @Override
+    public ImageView loadImage(String url) {
+        ImageView imgRes = new ImageView(url);
+        double newMeasure = (imgRes.getImage().getWidth() < imgRes.getImage().getHeight()) ?
+                imgRes.getImage().getWidth() :
+                imgRes.getImage().getHeight();
+        double x = (imgRes.getImage().getWidth() - newMeasure) / 2;
+        double y = (imgRes.getImage().getHeight() - newMeasure) / 2;
+        Rectangle2D rectangle = new Rectangle2D(x, y, newMeasure, newMeasure);
+        Rectangle rect = new Rectangle(0, 0, 115, 160);
+        rect.setArcHeight(20.0);
+        rect.setArcWidth(20.0);
+        imgRes.setViewport(rectangle);
+        imgRes.setClip(rect);
+        imgRes.setFitWidth(115);
+        imgRes.setFitHeight(160);
+        imgRes.setSmooth(true);
+        return imgRes;
     }
 }
