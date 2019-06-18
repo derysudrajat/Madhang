@@ -1,6 +1,7 @@
 package sample.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,11 +21,20 @@ public class RegisterControler implements Initializable, UiLoaderCallback {
     @FXML
     private JFXButton btn_next;
 
+    @FXML
+    private JFXTextField tf_nama;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btn_next.setOnAction(event -> {
-            loadUI("/sample/layout/table_choose_activity.fxml", main_frame);
+
+            if(tf_nama.getText().toString().trim().isEmpty()){
+                System.out.println("JANGAN KOSONG");
+            }else{
+                System.out.println(tf_nama.getText().toString().trim());
+                loadUI("/sample/layout/table_choose_activity.fxml", main_frame);
+            }
+
         });
     }
 
