@@ -30,6 +30,8 @@ public class RegisterControler implements Initializable, UiLoaderCallback {
 
             if(tf_nama.getText().toString().trim().isEmpty()){
                 System.out.println("JANGAN KOSONG");
+                System.out.println("erpam");
+
             }else{
                 System.out.println(tf_nama.getText().toString().trim());
                 loadUI("/sample/layout/table_choose_activity.fxml", main_frame);
