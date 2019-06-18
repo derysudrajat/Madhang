@@ -47,6 +47,8 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
     private Foods foods;
     private StackPane mStackPane;
     private Popup pop = new Popup();
+    private int mPrice;
+    private int mQyt;
 
     public CartAdapter(JFXListView<Foods> foodsListView, StackPane mStackPane) {
         this.foodsListView = foodsListView;
@@ -55,6 +57,7 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
 
     @Override
     protected void updateItem(Foods item, boolean empty) {
+        foods = item;
         super.updateItem(item, empty);
         if (empty || item == null) {
             setText(null);
@@ -71,6 +74,7 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
             }
             String url = "/sample/res/juice/jusjeruk.png";
             img_frame.getChildren().add(loadImage(url));
+            mPrice = item.getPrice();
             txt_name.setText(item.getName());
             txt_price.setText(item.getPrice() + "K");
             setText(null);
@@ -80,9 +84,27 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        mQyt = 1;
         btn_menu.setOnAction(event -> {
             foods = foodsListView.getSelectionModel().getSelectedItem();
             pop.poupMenu(mStackPane, btn_menu, "Delete");
+        });
+        btn_add.setOnAction(event -> {
+            mQyt += 1;
+            txt_qty.setText(String.valueOf(mQyt));
+            mPrice = foods.getPrice() * mQyt;
+            txt_price.setText(mPrice + "K");
+        });
+        btn_min.setOnAction(event -> {
+            if (mQyt < 2) {
+                pop.poup2Dialog(mStackPane, "Hapus Item", "Apakah anda ingin menghapus item ini?",
+                        "IYA", "TIDAK", "Berhasil", "Item berhasil di hapus", "OK");
+            } else {
+                mQyt -= 1;
+                txt_qty.setText(String.valueOf(mQyt));
+                mPrice = foods.getPrice() * mQyt;
+                txt_price.setText(mPrice + "K");
+            }
         });
     }
 
