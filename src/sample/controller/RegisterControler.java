@@ -31,7 +31,7 @@ public class RegisterControler implements Initializable, UiLoaderCallback {
     @FXML
     void textValidate(KeyEvent event) {
         if (tf_nama.getText().equals("")) {
-            validator.setMessage("Name Can't be Empty");
+            validator.setMessage("Isi nama terlebih dahulu");
             tf_nama.getValidators().add(validator);
             tf_nama.validate();
         } else {
@@ -43,7 +43,7 @@ public class RegisterControler implements Initializable, UiLoaderCallback {
     public void initialize(URL location, ResourceBundle resources) {
         btn_next.setOnAction(event -> {
             if (tf_nama.getText().trim().isEmpty()) {
-                validator.setMessage("Field tidak boleh kosong");
+                validator.setMessage("Isi nama terlebih dahulu");
                 tf_nama.getValidators().add(validator);
                 tf_nama.validate();
             }else{
