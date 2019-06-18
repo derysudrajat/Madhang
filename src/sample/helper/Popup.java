@@ -59,14 +59,15 @@ public class Popup {
         btnMenu2.setPadding(new Insets(10, 50, 10, 10));
         VBox vBox = new VBox(btnMenu1, btnMenu2);
         btnMenu1.setOnAction(event -> {
-            String message = "Menu 1 Pressed";
-            System.out.println(message);
-            poup1Dialog(stackPane, menu1, message, "OK");
+            poup2Dialog(stackPane, "Hapus Item", "Apakah anda ingin menghapus item ini?",
+                    "IYA", "TIDAK", "Berhasil", "Item berhasil di hapus", "OK");
+
         });
         btnMenu2.setOnAction(event -> {
             String message = "Menu 2 Pressed";
             System.out.println(message);
-            poup1Dialog(stackPane, menu2, message, "OK");
+            poup2Dialog(stackPane, "Hapus Item", "Apakah anda ingin menghapus semua item ini?",
+                    "IYA", "TIDAK", "Berhasil", "Item berhasil di hapus", "OK");
         });
         popup.setPopupContent(vBox);
         popup.setAutoHide(true);
@@ -79,9 +80,8 @@ public class Popup {
         btnMenu.setPadding(new Insets(10, 50, 10, 10));
         VBox vBox = new VBox(btnMenu);
         btnMenu.setOnAction(event -> {
-            String message = "Menu 1 Pressed";
-            System.out.println(message);
-            poup1Dialog(stackPane, menu, message, "OK");
+            poup2Dialog(stackPane, "Hapus Item", "Apakah anda ingin menghapus item ini?",
+                    "IYA", "TIDAK", "Berhasil", "Item berhasil di hapus", "OK");
         });
         popup.setPopupContent(vBox);
         popup.setAutoHide(true);
