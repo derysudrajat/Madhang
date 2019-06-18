@@ -10,10 +10,12 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import sample.entity.Foods;
 import sample.helper.ImageLoaderCallback;
+import sample.helper.Popup;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +29,11 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
     @FXML
     private Text txt_name;
     @FXML
+    private Text txt_qty;
+    @FXML
     private Text txt_price;
+    @FXML
+    private JFXButton btn_menu;
     @FXML
     private JFXButton btn_add;
     @FXML
@@ -39,9 +45,12 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
     private FXMLLoader mLLoader;
     private JFXListView<Foods> foodsListView;
     private Foods foods;
+    private StackPane mStackPane;
+    private Popup pop = new Popup();
 
-    public CartAdapter(JFXListView<Foods> foodsListView) {
+    public CartAdapter(JFXListView<Foods> foodsListView, StackPane mStackPane) {
         this.foodsListView = foodsListView;
+        this.mStackPane = mStackPane;
     }
 
     @Override
@@ -54,7 +63,6 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
             if (mLLoader == null) {
                 mLLoader = new FXMLLoader(getClass().getResource("/sample/layout/list_cart_item.fxml"));
                 mLLoader.setController(this);
-
                 try {
                     mLLoader.load();
                 } catch (IOException e) {
@@ -72,7 +80,10 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        btn_menu.setOnAction(event -> {
+            foods = foodsListView.getSelectionModel().getSelectedItem();
+            pop.poupMenu(mStackPane, btn_menu, "Delete");
+        });
     }
 
     @Override
