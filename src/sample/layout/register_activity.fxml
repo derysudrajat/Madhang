@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -12,9 +13,12 @@
             <Font name="Product Sans Bold" size="20.0" />
          </font>
       </JFXButton>
-      <AnchorPane layoutX="33.0" layoutY="271.0" prefHeight="67.0" prefWidth="239.0" style="-fx-background-color: #ffb600; -fx-background-radius: 40;">
+      <AnchorPane layoutX="34.0" layoutY="257.0" prefHeight="80.0" prefWidth="239.0"
+                  style="-fx-background-color: #ffb600; -fx-background-radius: 40;">
          <children>
-            <JFXTextField fx:id="tf_nama" alignment="CENTER" focusColor="WHITE" labelFloat="true" layoutX="35.0" layoutY="18.0" prefHeight="31.0" prefWidth="169.0" promptText="Input your name here" unFocusColor="#391616">
+            <JFXTextField fx:id="tf_nama" alignment="CENTER" focusColor="WHITE" labelFloat="true" layoutX="35.0"
+                          layoutY="18.0" onKeyReleased="#textValidate" prefHeight="31.0" prefWidth="169.0"
+                          promptText="Input your name here" unFocusColor="#391616">
                <font>
                   <Font name="Product Sans Bold" size="14.0" />
                </font>
@@ -22,4 +26,7 @@
          </children>
       </AnchorPane>
    </children>
+   <stylesheets>
+      <URL value="@/sample/style/listStyle.css"/>
+   </stylesheets>
 </AnchorPane>

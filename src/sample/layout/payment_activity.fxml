@@ -12,6 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import java.net.URL?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="main_frame" prefHeight="450.0" prefWidth="300.0"
             xmlns="http://javafx.com/javafx/8.0.171" fx:controller="sample.controller.PaymentActivity">
     <children>
@@ -121,4 +122,7 @@
             </children>
         </StackPane>
     </children>
+    <stylesheets>
+        <URL value="@/sample/style/listStyle.css"/>
+    </stylesheets>
 </AnchorPane>
