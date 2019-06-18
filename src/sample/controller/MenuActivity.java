@@ -13,6 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import sample.adapter.FoodAdapter;
 import sample.entity.Foods;
@@ -29,6 +30,8 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
     private AnchorPane main_frame;
     @FXML
     private Text activity_title;
+    @FXML
+    private StackPane main_stackpane;
     @FXML
     private JFXButton btn_back;
     @FXML
@@ -157,7 +160,7 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
 
     private void refreshData() {
         list_view.setItems(foodsObservableList);
-        list_view.setCellFactory(foodListView -> new FoodAdapter(list_view, this));
+        list_view.setCellFactory(foodListView -> new FoodAdapter(list_view, this, main_stackpane));
     }
 
     @Override

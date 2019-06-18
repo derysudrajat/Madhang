@@ -12,8 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import sample.adapter.CartAdapter;
 import sample.entity.Foods;
+import sample.helper.Popup;
 import sample.helper.UiLoaderCallback;
 
 import java.io.IOException;
@@ -28,9 +30,14 @@ public class CartActivity implements Initializable, UiLoaderCallback, EventHandl
     @FXML
     private JFXListView<Foods> list_view;
     @FXML
+    private StackPane main_stackpane;
+    @FXML
+    private JFXButton btn_menu;
+    @FXML
     private JFXButton btn_pay;
     private Foods foods;
     private ObservableList<Foods> foodsObservableList;
+    private Popup pop = new Popup();
 
     public CartActivity() {
         LoadData();
@@ -41,6 +48,7 @@ public class CartActivity implements Initializable, UiLoaderCallback, EventHandl
         refreshData();
         btn_back.setOnAction(this::handle);
         btn_pay.setOnAction(this::handle);
+        btn_menu.setOnAction(this::handle);
     }
 
     void LoadData() {
@@ -56,7 +64,7 @@ public class CartActivity implements Initializable, UiLoaderCallback, EventHandl
 
     void refreshData() {
         list_view.setItems(foodsObservableList);
-        list_view.setCellFactory(foodListView -> new CartAdapter(list_view));
+        list_view.setCellFactory(foodListView -> new CartAdapter(list_view, main_stackpane));
     }
 
     @Override
@@ -74,6 +82,9 @@ public class CartActivity implements Initializable, UiLoaderCallback, EventHandl
         EventTarget et = event.getTarget();
         if (et.equals(btn_back)) {
             loadUI("/sample/layout/menu_activity.fxml", main_frame);
+        }
+        if (et.equals(btn_menu)) {
+            pop.poup2Menu(main_stackpane, btn_menu, "Delete      ", "Delete All ");
         }
         if (et.equals(btn_pay)) {
             loadUI("/sample/layout/payment_activity.fxml", main_frame);
