@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
+import sample.helper.Popup;
 import sample.helper.UiLoaderCallback;
 
 import java.io.IOException;
@@ -33,10 +34,12 @@ public class PaymentActivity implements Initializable, UiLoaderCallback, EventHa
     private Text list_items;
     @FXML
     private JFXButton btn_make_order;
+    private Popup pop = new Popup();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btn_back.setOnAction(this::handle);
+        btn_make_order.setOnAction(this::handle);
     }
 
     @Override
@@ -46,7 +49,9 @@ public class PaymentActivity implements Initializable, UiLoaderCallback, EventHa
             loadUI("/sample/layout/cart_activity.fxml", main_frame);
         }
         if (et.equals(btn_make_order)) {
-
+            pop.poup2Dialog(main_stack_pane, "Make Order",
+                    "Terimakasih telah memasan", "Ok", "Cancel",
+                    "Confirm", "Silahan Menunggu", "OK");
         }
     }
 
