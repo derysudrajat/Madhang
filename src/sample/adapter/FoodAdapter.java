@@ -10,12 +10,14 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.control.ListCell;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import sample.controller.MenuActivity;
 import sample.entity.Foods;
 import sample.helper.ImageLoaderCallback;
 import sample.helper.NotifUpdaterCallback;
+import sample.helper.Popup;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,10 +45,13 @@ public class FoodAdapter extends ListCell<Foods> implements Initializable, Image
     private JFXListView<Foods> foodsListView;
     private Foods foods;
     private MenuActivity mContext;
+    private StackPane mStackpane;
+    private Popup pop = new Popup();
 
-    public FoodAdapter(JFXListView<Foods> foodsListView, MenuActivity mContext) {
+    public FoodAdapter(JFXListView<Foods> foodsListView, MenuActivity mContext, StackPane mStackPane) {
         this.foodsListView = foodsListView;
         this.mContext = mContext;
+        this.mStackpane = mStackPane;
     }
 
     @Override
@@ -93,7 +98,7 @@ public class FoodAdapter extends ListCell<Foods> implements Initializable, Image
                         if (mContext instanceof MenuActivity) {
                             ((NotifUpdaterCallback) mContext).addItem();
                         }
-                        //menuCategoryActivity.addItem();
+                        pop.toast(mStackpane, foods.getName() + " telah ditambahkan");
                     } else {
                         btn_add.setStyle("-fx-background-color: #fff1d3;" +
                                 "-fx-background-radius:50;");
@@ -101,7 +106,7 @@ public class FoodAdapter extends ListCell<Foods> implements Initializable, Image
                         btn_add_icon.setStyle("-fx-fill: #522c2c");
                         System.out.println(foods.getName() + " batal di tambahkan");
                         ((NotifUpdaterCallback) mContext).minItem();
-                        //menuCategoryActivity.minItem();
+                        pop.toast(mStackpane, foods.getName() + " batal ditambahkan");
                     }
                 }
             } catch (Exception e) {
