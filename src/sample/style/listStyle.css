@@ -41,3 +41,26 @@
     -fx-background-radius: 2em;
 
 }
+
+
+.button-dialog {
+    -fx-text-fill: #EF5463;
+    -fx-background-radius: 5;
+}
+
+.jfx-snackbar-content {
+    -fx-pref-height: 30;
+    -fx-padding: 4;
+    -fx-background-color: #7C4923;
+    -fx-background-radius: 30;
+    -fx-fill: white;
+}
+
+.jfx-snackbar-toast {
+    -fx-fill: white;
+}
+
+.dialog-style {
+    -fx-start-margin: 16;
+    -fx-end-margin: 16;
+}
