@@ -30,6 +30,7 @@ public class TableChooseActivity implements Initializable, UiLoaderCallback, Eve
 
     String nomor_kursi = null;
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btn_done.setOnAction(this::handle);
