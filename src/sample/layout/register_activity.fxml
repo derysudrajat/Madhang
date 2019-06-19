@@ -2,10 +2,11 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
-<?import java.net.URL?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-
+<?import java.net.URL?>
 <AnchorPane fx:id="main_frame" prefHeight="450.0" prefWidth="300.0" style="-fx-background-color: #fff1d3;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.controller.RegisterControler">
    <children>
       <JFXButton fx:id="btn_next" layoutX="87.0" layoutY="359.0" prefHeight="44.0" prefWidth="132.0" ripplerFill="WHITE" style="-fx-background-radius: 30; -fx-background-color: #ffb600;" text="NEXT" textFill="#522c2c">
@@ -25,6 +26,12 @@
             </JFXTextField>
          </children>
       </AnchorPane>
+      <ImageView fitHeight="195.0" fitWidth="231.0" layoutX="44.0" layoutY="30.0" pickOnBounds="true"
+                 preserveRatio="true">
+         <image>
+            <Image url="@../res/icon.png"/>
+         </image>
+      </ImageView>
    </children>
    <stylesheets>
       <URL value="@/sample/style/listStyle.css"/>
