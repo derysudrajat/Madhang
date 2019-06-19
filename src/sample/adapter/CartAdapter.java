@@ -86,24 +86,50 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
     public void initialize(URL location, ResourceBundle resources) {
         mQyt = 1;
         btn_menu.setOnAction(event -> {
-            foods = foodsListView.getSelectionModel().getSelectedItem();
-            pop.poupMenu(mStackPane, btn_menu, "Delete");
+            try {
+                foods = foodsListView.getSelectionModel().getSelectedItem();
+                if (foods != null) {
+                    pop.poupMenu(mStackPane, btn_menu, "Delete", foods);
+                } else {
+                    pop.toast(mStackPane, "Silakan pilih item terlebih dahulu");
+                }
+            } catch (Exception e) {
+                pop.toast(mStackPane, "Silakan pilih item terlebih dahulu");
+            }
         });
         btn_add.setOnAction(event -> {
-            mQyt += 1;
-            txt_qty.setText(String.valueOf(mQyt));
-            mPrice = foods.getPrice() * mQyt;
-            txt_price.setText(mPrice + "K");
+            try {
+                foods = foodsListView.getSelectionModel().getSelectedItem();
+                if (foods != null) {
+                    mQyt += 1;
+                    txt_qty.setText(String.valueOf(mQyt));
+                    mPrice = foods.getPrice() * mQyt;
+                    txt_price.setText(mPrice + "K");
+                } else {
+                    pop.toast(mStackPane, "Silakan pilih item terlebih dahulu");
+                }
+            } catch (Exception e) {
+                pop.toast(mStackPane, "Silakan pilih item terlebih dahulu");
+            }
         });
         btn_min.setOnAction(event -> {
-            if (mQyt < 2) {
-                pop.poup2Dialog(mStackPane, "Hapus Item", "Apakah anda ingin menghapus item ini?",
-                        "IYA", "TIDAK", "Berhasil", "Item berhasil di hapus", "OK");
-            } else {
-                mQyt -= 1;
-                txt_qty.setText(String.valueOf(mQyt));
-                mPrice = foods.getPrice() * mQyt;
-                txt_price.setText(mPrice + "K");
+            try {
+                foods = foodsListView.getSelectionModel().getSelectedItem();
+                if (foods != null) {
+                    if (mQyt < 2) {
+                        pop.poup2Dialog(mStackPane, "Hapus Item", "Apakah anda ingin menghapus item ini?",
+                                "IYA", "TIDAK", "Berhasil", "Item berhasil di hapus", "OK");
+                    } else {
+                        mQyt -= 1;
+                        txt_qty.setText(String.valueOf(mQyt));
+                        mPrice = foods.getPrice() * mQyt;
+                        txt_price.setText(mPrice + "K");
+                    }
+                } else {
+                    pop.toast(mStackPane, "Silakan pilih item terlebih dahulu");
+                }
+            } catch (Exception e) {
+                pop.toast(mStackPane, "Silakan pilih item terlebih dahulu");
             }
         });
     }
