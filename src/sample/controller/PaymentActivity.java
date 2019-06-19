@@ -25,11 +25,13 @@ public class PaymentActivity implements Initializable, UiLoaderCallback, EventHa
     @FXML
     private JFXButton btn_back;
     @FXML
-    private Text customer_name;
+    private Text txt_table;
     @FXML
-    private Text total_items;
+    private Text txt_customer;
     @FXML
-    private Text total_price;
+    private Text txt_total_items;
+    @FXML
+    private Text txt_total_price;
     @FXML
     private Text list_items;
     @FXML
