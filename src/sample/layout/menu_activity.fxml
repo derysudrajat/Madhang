@@ -1,19 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXListView?>
-<?import com.jfoenix.controls.JFXToolbar?>
+<?import com.jfoenix.controls.*?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.StackPane?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="main_frame" prefHeight="450.0" prefWidth="300.0"
             style="-fx-background-color: #fff1d3;" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="sample.controller.MenuActivity">
@@ -91,96 +83,119 @@
                                         </HBox>
                                     </top>
                                 </JFXToolbar>
-                                <AnchorPane prefHeight="390.0" prefWidth="300.0">
+                                <AnchorPane fx:id="content_frame" prefHeight="450.0" prefWidth="300.0">
                                     <children>
-                                        <JFXListView fx:id="list_view" layoutY="96.0" prefHeight="294.0"
-                                                     prefWidth="300.0" stylesheets="@../style/listStyle.css"/>
-                                        <HBox layoutY="56.0" prefHeight="40.0" prefWidth="300.0">
+                                        <VBox prefHeight="390.0" prefWidth="300.0">
                                             <children>
-                                                <JFXButton fx:id="btn_rating" prefHeight="40.0" prefWidth="150.0"
-                                                           text="Rating" textFill="#522c2c"/>
-                                                <JFXButton fx:id="btn_price" contentDisplay="RIGHT" prefHeight="40.0"
-                                                           prefWidth="150.0" text="Price" textFill="#522c2c">
-                                                    <graphic>
-                                                        <MaterialDesignIconView fx:id="icon_price" fill="#522c2c"
-                                                                                glyphName="MENU_DOWN" size="24"/>
-                                                    </graphic>
+                                                <AnchorPane prefHeight="390.0" prefWidth="300.0">
+                                                    <children>
+                                                        <JFXListView fx:id="list_view" layoutY="96.0" prefHeight="294.0"
+                                                                     prefWidth="300.0"
+                                                                     stylesheets="@../style/listStyle.css"/>
+                                                        <HBox layoutY="56.0" prefHeight="40.0" prefWidth="300.0">
+                                                            <children>
+                                                                <JFXButton fx:id="btn_rating" prefHeight="40.0"
+                                                                           prefWidth="150.0" text="Rating"
+                                                                           textFill="#522c2c"/>
+                                                                <JFXButton fx:id="btn_price" contentDisplay="RIGHT"
+                                                                           prefHeight="40.0" prefWidth="150.0"
+                                                                           text="Price" textFill="#522c2c">
+                                                                    <graphic>
+                                                                        <MaterialDesignIconView fx:id="icon_price"
+                                                                                                fill="#522c2c"
+                                                                                                glyphName="MENU_DOWN"
+                                                                                                size="24"/>
+                                                                    </graphic>
                                                 </JFXButton>
+                                                            </children>
+                                                        </HBox>
+                                                        <HBox layoutX="13.0" layoutY="6.0" prefHeight="43.0"
+                                                              prefWidth="274.0">
+                                                            <children>
+                                                                <JFXButton fx:id="btn_food" prefHeight="30.0"
+                                                                           prefWidth="100.0"
+                                                                           style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;"
+                                                                           text="Food" textFill="#522c2c">
+                                                                    <HBox.margin>
+                                                                        <Insets/>
+                                                                    </HBox.margin>
+                                                </JFXButton>
+                                                                <JFXButton fx:id="btn_snacks" prefHeight="30.0"
+                                                                           prefWidth="100.0"
+                                                                           style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;"
+                                                                           text="Snacks" textFill="#522c2c">
+                                                                    <HBox.margin>
+                                                                        <Insets left="8.0" right="8.0"/>
+                                                                    </HBox.margin>
+                                                </JFXButton>
+                                                                <JFXButton fx:id="btn_juice" alignment="CENTER"
+                                                                           contentDisplay="CENTER" prefHeight="30.0"
+                                                                           prefWidth="100.0"
+                                                                           style="-fx-background-radius: 50; -fx-border-color: #ffb600; -fx-border-radius: 50;"
+                                                                           text="Juice" textFill="#522c2c">
+                                                                    <HBox.margin>
+                                                                        <Insets right="8.0"/>
+                                                                    </HBox.margin>
+                                                </JFXButton>
+                                                                <JFXButton fx:id="btn_coffee" prefHeight="30.0"
+                                                                           prefWidth="100.0"
+                                                                           style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;"
+                                                                           text="Coffee" textFill="#522c2c"/>
+                                                            </children>
+                                                            <padding>
+                                                                <Insets top="16.0"/>
+                                                            </padding>
+                                                        </HBox>
+                                                    </children>
+                                                </AnchorPane>
+                                                <AnchorPane fx:id="nav_bottom" prefHeight="40.0" prefWidth="262.0"
+                                                            style="-fx-background-color: #ffb600; -fx-background-radius: 20 20 0 0;">
+                                                    <children>
+                                                        <HBox alignment="CENTER_LEFT" prefHeight="40.0"
+                                                              prefWidth="300.0">
+                                                            <children>
+                                                                <Text fill="#522c2c" strokeType="OUTSIDE"
+                                                                      strokeWidth="0.0" text="Rp." textAlignment="RIGHT"
+                                                                      wrappingWidth="50.13671875">
+                                                                    <font>
+                                                                        <Font name="Product Sans Bold" size="14.0"/>
+                                                                    </font>
+                                                </Text>
+                                                                <Text fx:id="txt_price" fill="#522c2c"
+                                                                      strokeType="OUTSIDE" strokeWidth="0.0" text="100k"
+                                                                      wrappingWidth="66.13671875">
+                                                                    <font>
+                                                                        <Font name="Product Sans Bold" size="14.0"/>
+                                                                    </font>
+                                                </Text>
+                                                                <Text fx:id="txt_qty" fill="#522c2c"
+                                                                      strokeType="OUTSIDE" strokeWidth="0.0" text="1"
+                                                                      textAlignment="RIGHT" wrappingWidth="29.13671875">
+                                                                    <HBox.margin>
+                                                                        <Insets/>
+                                                                    </HBox.margin>
+                                                </Text>
+                                                                <Text fill="#522c2c" strokeType="OUTSIDE"
+                                                                      strokeWidth="0.0" text="Items"
+                                                                      wrappingWidth="58.13671875">
+                                                                    <HBox.margin>
+                                                                        <Insets left="4.0"/>
+                                                                    </HBox.margin>
+                                                </Text>
+                                                                <JFXButton fx:id="btn_pay" prefHeight="40.0"
+                                                                           prefWidth="124.0"
+                                                                           style="-fx-background-radius: 50;" text="Pay"
+                                                                           textFill="#522c2c">
+                                                                    <font>
+                                                                        <Font name="Product Sans Bold" size="14.0"/>
+                                                                    </font>
+                                                </JFXButton>
+                                                            </children>
+                                                        </HBox>
+                                                    </children>
+                                                </AnchorPane>
                                             </children>
-                                        </HBox>
-                                        <HBox layoutX="13.0" layoutY="6.0" prefHeight="43.0" prefWidth="274.0">
-                                            <children>
-                                                <JFXButton fx:id="btn_food" prefHeight="30.0" prefWidth="100.0"
-                                                           style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;"
-                                                           text="Food" textFill="#522c2c">
-                                                    <HBox.margin>
-                                                        <Insets/>
-                                                    </HBox.margin>
-                                                </JFXButton>
-                                                <JFXButton fx:id="btn_snacks" prefHeight="30.0" prefWidth="100.0"
-                                                           style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;"
-                                                           text="Snacks" textFill="#522c2c">
-                                                    <HBox.margin>
-                                                        <Insets left="8.0" right="8.0"/>
-                                                    </HBox.margin>
-                                                </JFXButton>
-                                                <JFXButton fx:id="btn_juice" alignment="CENTER" contentDisplay="CENTER"
-                                                           prefHeight="30.0" prefWidth="100.0"
-                                                           style="-fx-background-radius: 50; -fx-border-color: #ffb600; -fx-border-radius: 50;"
-                                                           text="Juice" textFill="#522c2c">
-                                                    <HBox.margin>
-                                                        <Insets right="8.0"/>
-                                                    </HBox.margin>
-                                                </JFXButton>
-                                                <JFXButton fx:id="btn_coffee" prefHeight="30.0" prefWidth="100.0"
-                                                           style="-fx-background-radius: 40; -fx-border-color: #ffb600; -fx-border-radius: 40;"
-                                                           text="Coffee" textFill="#522c2c"/>
-                                            </children>
-                                            <padding>
-                                                <Insets top="16.0"/>
-                                            </padding>
-                                        </HBox>
-                                    </children>
-                                </AnchorPane>
-                                <AnchorPane fx:id="nav_bottom" prefHeight="40.0" prefWidth="262.0"
-                                            style="-fx-background-color: #ffb600; -fx-background-radius: 20 20 0 0;">
-                                    <children>
-                                        <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="300.0">
-                                            <children>
-                                                <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp."
-                                                      textAlignment="RIGHT" wrappingWidth="50.13671875">
-                                                    <font>
-                                                        <Font name="Product Sans Bold" size="14.0"/>
-                                                    </font>
-                                                </Text>
-                                                <Text fx:id="txt_price" fill="#522c2c" strokeType="OUTSIDE"
-                                                      strokeWidth="0.0" text="100k" wrappingWidth="66.13671875">
-                                                    <font>
-                                                        <Font name="Product Sans Bold" size="14.0"/>
-                                                    </font>
-                                                </Text>
-                                                <Text fx:id="txt_qty" fill="#522c2c" strokeType="OUTSIDE"
-                                                      strokeWidth="0.0" text="1" textAlignment="RIGHT"
-                                                      wrappingWidth="29.13671875">
-                                                    <HBox.margin>
-                                                        <Insets/>
-                                                    </HBox.margin>
-                                                </Text>
-                                                <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0" text="Items"
-                                                      wrappingWidth="58.13671875">
-                                                    <HBox.margin>
-                                                        <Insets left="4.0"/>
-                                                    </HBox.margin>
-                                                </Text>
-                                                <JFXButton fx:id="btn_pay" prefHeight="40.0" prefWidth="124.0"
-                                                           style="-fx-background-radius: 50;" text="Pay"
-                                                           textFill="#522c2c">
-                                                    <font>
-                                                        <Font name="Product Sans Bold" size="14.0"/>
-                                                    </font>
-                                                </JFXButton>
-                                            </children>
-                                        </HBox>
+                                        </VBox>
                                     </children>
                                 </AnchorPane>
                             </children>
