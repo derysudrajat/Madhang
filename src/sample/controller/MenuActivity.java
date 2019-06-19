@@ -49,6 +49,8 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
     @FXML
     private MaterialDesignIconView icon_price;
     @FXML
+    private AnchorPane nav_bottom;
+    @FXML
     private JFXButton btn_food;
     @FXML
     private JFXButton btn_snacks;
@@ -56,6 +58,10 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
     private JFXButton btn_juice;
     @FXML
     private JFXButton btn_coffee;
+    @FXML
+    private Text txt_price;
+    @FXML
+    private Text txt_qty;
     @FXML
     private JFXListView<Foods> list_view;
 
@@ -70,6 +76,8 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        nav_bottom.setVisible(false);
+        nav_bottom.setManaged(false);
         btn_back.setOnAction(this::handle);
         btn_cart.setOnAction(this::handle);
         btn_pay.setOnAction(this::handle);
@@ -184,6 +192,9 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
             txt_notif.setText(String.valueOf(notifCount));
         } else {
             notif_pane.setVisible(true);
+            nav_bottom.setVisible(true);
+            nav_bottom.setManaged(true);
+            list_view.setPrefHeight(254);
             notifCount += 1;
             txt_notif.setText(String.valueOf(notifCount));
         }
@@ -193,6 +204,9 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
     public void minItem() {
         if (notifCount < 2) {
             notif_pane.setVisible(false);
+            nav_bottom.setVisible(false);
+            nav_bottom.setManaged(false);
+            list_view.setPrefHeight(294);
             notifCount -= 1;
         } else {
             notifCount -= 1;
