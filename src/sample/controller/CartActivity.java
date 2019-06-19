@@ -13,6 +13,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
 import sample.adapter.CartAdapter;
 import sample.entity.Foods;
 import sample.helper.Popup;
@@ -33,6 +34,10 @@ public class CartActivity implements Initializable, UiLoaderCallback, EventHandl
     private StackPane main_stackpane;
     @FXML
     private JFXButton btn_menu;
+    @FXML
+    private Text txt_price;
+    @FXML
+    private Text txt_qty;
     @FXML
     private JFXButton btn_pay;
     private Foods foods;
@@ -84,7 +89,8 @@ public class CartActivity implements Initializable, UiLoaderCallback, EventHandl
             loadUI("/sample/layout/menu_activity.fxml", main_frame);
         }
         if (et.equals(btn_menu)) {
-            pop.poup2Menu(main_stackpane, btn_menu, "Delete      ", "Delete All ");
+            foods = list_view.getSelectionModel().getSelectedItem();
+            pop.poup2Menu(main_stackpane, btn_menu, "Delete      ", "Delete All ", foods);
         }
         if (et.equals(btn_pay)) {
             loadUI("/sample/layout/payment_activity.fxml", main_frame);
