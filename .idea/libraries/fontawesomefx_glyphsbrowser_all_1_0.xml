@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="fontawesomefx-glyphsbrowser-all-1.0">
     <CLASSES>
-      <root url="jar://D:/JFX/fontawesomefx-glyphsbrowser-all-1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/fontawesomefx-glyphsbrowser-all-1.0.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
