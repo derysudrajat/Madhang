@@ -108,8 +108,12 @@ public class FoodAdapter extends ListCell<Foods> implements Initializable, Image
                         ((NotifUpdaterCallback) mContext).minItem();
                         pop.toast(mStackpane, foods.getName() + " batal ditambahkan");
                     }
+                } else {
+                    pop.toast(mStackpane, "Please Select item first");
+                    System.out.println("Please Select item first");
                 }
             } catch (Exception e) {
+                pop.toast(mStackpane, "Please Select item first");
                 System.out.println("Please Select item first");
             }
 
