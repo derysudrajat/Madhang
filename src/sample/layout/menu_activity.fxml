@@ -91,9 +91,9 @@
                                         </HBox>
                                     </top>
                                 </JFXToolbar>
-                                <AnchorPane prefHeight="350.0" prefWidth="300.0">
+                                <AnchorPane prefHeight="390.0" prefWidth="300.0">
                                     <children>
-                                        <JFXListView fx:id="list_view" layoutY="96.0" prefHeight="254.0"
+                                        <JFXListView fx:id="list_view" layoutY="96.0" prefHeight="294.0"
                                                      prefWidth="300.0" stylesheets="@../style/listStyle.css"/>
                                         <HBox layoutY="56.0" prefHeight="40.0" prefWidth="300.0">
                                             <children>
@@ -142,20 +142,36 @@
                                         </HBox>
                                     </children>
                                 </AnchorPane>
-                                <AnchorPane prefHeight="40.0" prefWidth="262.0"
+                                <AnchorPane fx:id="nav_bottom" prefHeight="40.0" prefWidth="262.0"
                                             style="-fx-background-color: #ffb600; -fx-background-radius: 20 20 0 0;">
                                     <children>
                                         <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="300.0">
                                             <children>
-                                                <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0"
-                                                      text="Rp. 100k" textAlignment="CENTER"
-                                                      wrappingWidth="105.13671875">
+                                                <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp."
+                                                      textAlignment="RIGHT" wrappingWidth="50.13671875">
                                                     <font>
                                                         <Font name="Product Sans Bold" size="14.0"/>
                                                     </font>
                                                 </Text>
-                                                <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0"
-                                                      text="1 Items" wrappingWidth="115.13671875"/>
+                                                <Text fx:id="txt_price" fill="#522c2c" strokeType="OUTSIDE"
+                                                      strokeWidth="0.0" text="100k" wrappingWidth="66.13671875">
+                                                    <font>
+                                                        <Font name="Product Sans Bold" size="14.0"/>
+                                                    </font>
+                                                </Text>
+                                                <Text fx:id="txt_qty" fill="#522c2c" strokeType="OUTSIDE"
+                                                      strokeWidth="0.0" text="1" textAlignment="RIGHT"
+                                                      wrappingWidth="29.13671875">
+                                                    <HBox.margin>
+                                                        <Insets/>
+                                                    </HBox.margin>
+                                                </Text>
+                                                <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0" text="Items"
+                                                      wrappingWidth="58.13671875">
+                                                    <HBox.margin>
+                                                        <Insets left="4.0"/>
+                                                    </HBox.margin>
+                                                </Text>
                                                 <JFXButton fx:id="btn_pay" prefHeight="40.0" prefWidth="124.0"
                                                            style="-fx-background-radius: 50;" text="Pay"
                                                            textFill="#522c2c">

@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXToolbar?>
 <?import de.jensd.fx.glyphs.materialdesignicons.MaterialDesignIconView?>
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -13,7 +14,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<?import java.net.URL?>
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="main_frame" prefHeight="450.0" prefWidth="300.0"
             style="-fx-background-color: #fff1d3;" xmlns="http://javafx.com/javafx/8.0.171"
             fx:controller="sample.controller.CartActivity">
@@ -70,15 +70,31 @@
                                     <children>
                                         <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="300.0">
                                             <children>
-                                                <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0"
-                                                      text="Rp. 100k" textAlignment="CENTER"
-                                                      wrappingWidth="105.13671875">
+                                                <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0" text="Rp."
+                                                      textAlignment="RIGHT" wrappingWidth="50.13671875">
                                                     <font>
                                                         <Font name="Product Sans Bold" size="14.0"/>
                                                     </font>
                                                 </Text>
-                                                <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0"
-                                                      text="1 Items" wrappingWidth="115.13671875"/>
+                                                <Text fx:id="txt_price" fill="#522c2c" strokeType="OUTSIDE"
+                                                      strokeWidth="0.0" text="100k" wrappingWidth="66.13671875">
+                                                    <font>
+                                                        <Font name="Product Sans Bold" size="14.0"/>
+                                                    </font>
+                                                </Text>
+                                                <Text fx:id="txt_qty" fill="#522c2c" strokeType="OUTSIDE"
+                                                      strokeWidth="0.0" text="1" textAlignment="RIGHT"
+                                                      wrappingWidth="29.13671875">
+                                                    <HBox.margin>
+                                                        <Insets/>
+                                                    </HBox.margin>
+                                                </Text>
+                                                <Text fill="#522c2c" strokeType="OUTSIDE" strokeWidth="0.0" text="Items"
+                                                      wrappingWidth="58.13671875">
+                                                    <HBox.margin>
+                                                        <Insets left="4.0"/>
+                                                    </HBox.margin>
+                                                </Text>
                                                 <JFXButton fx:id="btn_pay" prefHeight="40.0" prefWidth="124.0"
                                                            style="-fx-background-radius: 50;" text="Pay"
                                                            textFill="#522c2c">
