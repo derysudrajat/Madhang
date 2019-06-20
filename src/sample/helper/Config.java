@@ -6,7 +6,7 @@ public class Config {
     private final String dbUser = "root";
     private final String dbPass = "";
     //database belum dibuat
-    private final String dbName = "browncafe";
+    private final String dbName = "madhang";
 
     public String getDbHost() {
         return dbHost;
