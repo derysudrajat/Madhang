@@ -95,13 +95,17 @@ public class CartActivity implements Initializable, UiLoaderCallback, EventHandl
     public void handle(Event event) {
         EventTarget et = event.getTarget();
         if (et.equals(btn_back)) {
-            loadUI("/sample/layout/menu_activity.fxml", main_frame);
+            onBackPressed();
         }
         if (et.equals(btn_menu)) {
             carts = list_view.getSelectionModel().getSelectedItem();
-            pop.poup2MenuCart(main_stackpane, btn_menu, "Delete      ", "Delete All ", carts);
+            pop.poup2MenuCart(main_stackpane, btn_menu, "Delete      ", "Delete All ", carts, this);
         }
         if (et.equals(btn_pay)) {
+            int id = dbHelper.getIdCustomer(connection);
+            int pay = dbHelper.getTotalPay(connection);
+            int items = dbHelper.getTotalItems(connection);
+            dbHelper.setCustomerPay(connection, items, pay, id);
             loadUI("/sample/layout/payment_activity.fxml", main_frame);
         }
     }
@@ -116,5 +120,10 @@ public class CartActivity implements Initializable, UiLoaderCallback, EventHandl
     public void listChanged() {
         LoadData();
         refreshData();
+        summaryChanged();
+    }
+
+    void onBackPressed() {
+        loadUI("/sample/layout/menu_activity.fxml", main_frame);
     }
 }
