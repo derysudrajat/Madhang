@@ -6,13 +6,15 @@ public class Customer {
     private int chairnum;
     private int totalItems;
     private int totalPay;
+    private int status;
 
-    public Customer(int id, String name, int chairnum, int totalItems, int totalPay) {
+    public Customer(int id, String name, int chairnum, int totalItems, int totalPay, int status) {
         this.id = id;
         this.name = name;
         this.chairnum = chairnum;
         this.totalItems = totalItems;
         this.totalPay = totalPay;
+        this.status = status;
     }
 
     public int getId() {
@@ -53,5 +55,13 @@ public class Customer {
 
     public void setTotalPay(int totalPay) {
         this.totalPay = totalPay;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
