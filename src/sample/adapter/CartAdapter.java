@@ -98,7 +98,7 @@ public class CartAdapter extends ListCell<Cart> implements Initializable, ImageL
             try {
                 carts = cartsListView.getSelectionModel().getSelectedItem();
                 if (carts != null) {
-                    pop.poupMenuCart(mStackPane, btn_menu, "Delete", carts);
+                    pop.poupMenuCart(mStackPane, btn_menu, "Delete", carts, mContext);
                 } else {
                     pop.toast(mStackPane, "Silakan pilih item terlebih dahulu");
                 }
