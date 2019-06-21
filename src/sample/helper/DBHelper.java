@@ -74,6 +74,7 @@ public class DBHelper {
         return mList;
     }
 
+
     public ObservableList<Foods> sortItemBy(Connection connection, int type, int order) {
         String query = null;
         switch (order) {
@@ -112,15 +113,13 @@ public class DBHelper {
         return mList;
     }
 
-    public Customer getLastCustomer(Connection connection, int type) {
-        String query = "SELECT * FROM items WHERE type=?";
+    public Customer getLastCustomer(Connection connection) {
+        String query = "SELECT * FROM customer ORDER BY id_customer DESC LIMIT 1";
         ResultSet resultSet;
         Customer mCustomer = null;
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, type);
             resultSet = statement.executeQuery();
-
             while (resultSet.next()) {
                 mCustomer = new Customer(
                         resultSet.getInt("id_customer"),
@@ -150,6 +149,7 @@ public class DBHelper {
         }
     }
 
+
     public int getIdCustomer(Connection connection) {
         String query = "SELECT id_customer FROM customer ORDER BY id_customer DESC LIMIT 1";
         int id = 0;
@@ -166,6 +166,38 @@ public class DBHelper {
         return id;
     }
 
+    public String getNameCustomer(Connection connection) {
+        String query = "SELECT name FROM customer ORDER BY id_customer DESC LIMIT 1";
+        String name = null;
+        ResultSet resultSet;
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                name = resultSet.getString("name");
+            }
+        } catch (Exception e) {
+            System.out.println("DBHelper Exc : " + e.getMessage());
+        }
+        return name;
+    }
+
+    public int getChairCustomer(Connection connection) {
+        String query = "SELECT kursi FROM customer ORDER BY id_customer DESC LIMIT 1";
+        int chair = 0;
+        ResultSet resultSet;
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                chair = resultSet.getInt("kursi");
+            }
+        } catch (Exception e) {
+            System.out.println("DBHelper Exc : " + e.getMessage());
+        }
+        return chair;
+    }
+
     public void setChairNum(Connection connection, int chair, int id) {
         try {
             String query2 = "UPDATE customer SET kursi = ? WHERE id_customer = ?";
@@ -174,7 +206,20 @@ public class DBHelper {
             statement.setInt(2, id);
             statement.executeUpdate();
         } catch (Exception e) {
+            System.out.println("DBHelper Exc : " + e.getMessage());
+        }
+    }
 
+    public void setCustomerPay(Connection connection, int item, int pay, int id) {
+        try {
+            String query2 = "UPDATE customer SET items = ?, total = ? WHERE id_customer = ?";
+            PreparedStatement statement = connection.prepareStatement(query2);
+            statement.setInt(1, item);
+            statement.setInt(2, pay);
+            statement.setInt(3, id);
+            statement.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("DBHelper setCustomerPay Exc : " + e.getMessage());
         }
     }
 
@@ -263,7 +308,7 @@ public class DBHelper {
             statement.setInt(1, id);
             statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println("DBHelper Exc : " + e.getMessage());
+            System.out.println("DBHelper deleteItemsCartbyId Exc : " + e.getMessage());
         }
     }
 
@@ -283,7 +328,7 @@ public class DBHelper {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.executeUpdate();
         } catch (Exception e) {
-            System.out.println("DBHelper Exc : " + e.getMessage());
+            System.out.println("DBHelper deleteAllItemsCart Exc : " + e.getMessage());
         }
     }
 
