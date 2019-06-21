@@ -13,15 +13,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import sample.entity.Foods;
+import sample.controller.CartActivity;
+import sample.entity.Cart;
+import sample.helper.DBHelper;
 import sample.helper.ImageLoaderCallback;
 import sample.helper.Popup;
+import sample.helper.SummaryOrderCallback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
-public class CartAdapter extends ListCell<Foods> implements Initializable, ImageLoaderCallback {
+public class CartAdapter extends ListCell<Cart> implements Initializable, ImageLoaderCallback {
     @FXML
     private AnchorPane list_frame;
     @FXML
@@ -43,21 +47,25 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
     @FXML
     private MaterialDesignIconView btn_add_icon1;
     private FXMLLoader mLLoader;
-    private JFXListView<Foods> foodsListView;
-    private Foods foods;
+    private JFXListView<Cart> cartsListView;
+    private Cart carts;
     private StackPane mStackPane;
     private Popup pop = new Popup();
+    private CartActivity mContext;
     private int mPrice;
     private int mQyt;
+    private DBHelper dbHelper = new DBHelper();
+    private Connection connection;
 
-    public CartAdapter(JFXListView<Foods> foodsListView, StackPane mStackPane) {
-        this.foodsListView = foodsListView;
+    public CartAdapter(JFXListView<Cart> cartsListView, StackPane mStackPane, CartActivity mContext) {
+        this.cartsListView = cartsListView;
         this.mStackPane = mStackPane;
+        this.mContext = mContext;
     }
 
     @Override
-    protected void updateItem(Foods item, boolean empty) {
-        foods = item;
+    protected void updateItem(Cart item, boolean empty) {
+        carts = item;
         super.updateItem(item, empty);
         if (empty || item == null) {
             setText(null);
@@ -72,11 +80,12 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
                     e.printStackTrace();
                 }
             }
-            String url = "/sample/res/juice/jusjeruk.png";
+            String url = item.getImg();
             img_frame.getChildren().add(loadImage(url));
-            mPrice = item.getPrice();
+            mPrice = item.getTotalPrice();
             txt_name.setText(item.getName());
-            txt_price.setText(item.getPrice() + "K");
+            txt_price.setText(item.getTotalPrice() * item.getQty() + "K");
+            txt_qty.setText(String.valueOf(item.getQty()));
             setText(null);
             setGraphic(list_frame);
         }
@@ -87,9 +96,9 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
         mQyt = 1;
         btn_menu.setOnAction(event -> {
             try {
-                foods = foodsListView.getSelectionModel().getSelectedItem();
-                if (foods != null) {
-                    pop.poupMenu(mStackPane, btn_menu, "Delete", foods);
+                carts = cartsListView.getSelectionModel().getSelectedItem();
+                if (carts != null) {
+                    pop.poupMenuCart(mStackPane, btn_menu, "Delete", carts);
                 } else {
                     pop.toast(mStackPane, "Silakan pilih item terlebih dahulu");
                 }
@@ -99,12 +108,19 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
         });
         btn_add.setOnAction(event -> {
             try {
-                foods = foodsListView.getSelectionModel().getSelectedItem();
-                if (foods != null) {
-                    mQyt += 1;
+                carts = cartsListView.getSelectionModel().getSelectedItem();
+                if (carts != null) {
+                    mQyt += 1;                    
                     txt_qty.setText(String.valueOf(mQyt));
-                    mPrice = foods.getPrice() * mQyt;
+                    mPrice = carts.getTotalPrice() * mQyt;
                     txt_price.setText(mPrice + "K");
+
+                    carts.setQty(mQyt);
+
+                    dbHelper.updateQty(connection, carts);
+                    if (mContext instanceof CartActivity) {
+                        ((SummaryOrderCallback) mContext).summaryChanged();
+                    }
                 } else {
                     pop.toast(mStackPane, "Silakan pilih item terlebih dahulu");
                 }
@@ -114,16 +130,23 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
         });
         btn_min.setOnAction(event -> {
             try {
-                foods = foodsListView.getSelectionModel().getSelectedItem();
-                if (foods != null) {
+                carts = cartsListView.getSelectionModel().getSelectedItem();
+                if (carts != null) {
                     if (mQyt < 2) {
                         pop.poup2Dialog(mStackPane, "Hapus Item", "Apakah anda ingin menghapus item ini?",
                                 "IYA", "TIDAK", "Berhasil", "Item berhasil di hapus", "OK");
                     } else {
                         mQyt -= 1;
                         txt_qty.setText(String.valueOf(mQyt));
-                        mPrice = foods.getPrice() * mQyt;
+                        mPrice = carts.getTotalPrice() * mQyt;
                         txt_price.setText(mPrice + "K");
+
+                        carts.setQty(mQyt);
+
+                        dbHelper.updateQty(connection, carts);
+                        if (mContext instanceof CartActivity) {
+                            ((SummaryOrderCallback) mContext).summaryChanged();
+                        }
                     }
                 } else {
                     pop.toast(mStackPane, "Silakan pilih item terlebih dahulu");
@@ -132,6 +155,11 @@ public class CartAdapter extends ListCell<Foods> implements Initializable, Image
                 pop.toast(mStackPane, "Silakan pilih item terlebih dahulu");
             }
         });
+        try {
+            connection = dbHelper.getConnection();
+        } catch (Exception e) {
+            System.out.println(FoodAdapter.class.getSimpleName() + " Exc: " + e.getMessage());
+        }
     }
 
     @Override

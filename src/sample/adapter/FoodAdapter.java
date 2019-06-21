@@ -15,12 +15,14 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import sample.controller.MenuActivity;
 import sample.entity.Foods;
+import sample.helper.DBHelper;
 import sample.helper.ImageLoaderCallback;
 import sample.helper.NotifUpdaterCallback;
 import sample.helper.Popup;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 public class FoodAdapter extends ListCell<Foods> implements Initializable, ImageLoaderCallback {
@@ -47,6 +49,8 @@ public class FoodAdapter extends ListCell<Foods> implements Initializable, Image
     private MenuActivity mContext;
     private StackPane mStackpane;
     private Popup pop = new Popup();
+    private DBHelper dbHelper = new DBHelper();
+    private Connection connection;
 
     public FoodAdapter(JFXListView<Foods> foodsListView, MenuActivity mContext, StackPane mStackPane) {
         this.foodsListView = foodsListView;
@@ -72,12 +76,17 @@ public class FoodAdapter extends ListCell<Foods> implements Initializable, Image
                     e.printStackTrace();
                 }
             }
-            String path = "/sample/res/food/miegoreng.jpg";
+            String path = foods.getImg();
             img_frame.getChildren().add(loadImage(path));
             txt_name.setText(foods.getName());
             txt_desc.setText(foods.getDesc());
             txt_price.setText(foods.getPrice() + "K");
-            txt_rate.setText(foods.getRate() + "");
+            txt_rate.setText(String.valueOf(foods.getRate()));
+            if (foods.getStatus() == 0) {
+                btnStatusInactive();
+            } else {
+                btnStatusActive();
+            }
             setText(null);
             setGraphic(list_frame);
         }
@@ -90,22 +99,23 @@ public class FoodAdapter extends ListCell<Foods> implements Initializable, Image
                 foods = foodsListView.getSelectionModel().getSelectedItem();
                 if (foods != null) {
                     if (btn_add_icon.getGlyphName().equals("PLUS")) {
-                        btn_add.setStyle("-fx-background-color: #ffb600;" +
-                                "-fx-background-radius:50;");
-                        btn_add_icon.setGlyphName("CHECK");
-                        btn_add_icon.setStyle("-fx-fill: #ffffff");
-                        System.out.println(foods.getName() + " berhasil di tambahkan");
+                        foods.setStatus(1);
+                        btnStatusActive();
+                        dbHelper.updateStatus(connection, foods.getId(), 1);
+                        dbHelper.addItemstoCart(connection, foods, 1);
                         if (mContext instanceof MenuActivity) {
                             ((NotifUpdaterCallback) mContext).addItem();
                         }
                         pop.toast(mStackpane, foods.getName() + " telah ditambahkan");
+
                     } else {
-                        btn_add.setStyle("-fx-background-color: #fff1d3;" +
-                                "-fx-background-radius:50;");
-                        btn_add_icon.setGlyphName("PLUS");
-                        btn_add_icon.setStyle("-fx-fill: #522c2c");
-                        System.out.println(foods.getName() + " batal di tambahkan");
-                        ((NotifUpdaterCallback) mContext).minItem();
+                        foods.setStatus(0);
+                        btnStatusInactive();
+                        dbHelper.deleteItemsCartbyId(connection, foods.getId());
+                        dbHelper.updateStatus(connection, foods.getId(), 0);
+                        if (mContext instanceof MenuActivity) {
+                            ((NotifUpdaterCallback) mContext).minItem();
+                        }
                         pop.toast(mStackpane, foods.getName() + " batal ditambahkan");
                     }
                 } else {
@@ -118,8 +128,26 @@ public class FoodAdapter extends ListCell<Foods> implements Initializable, Image
             }
 
         });
+        try {
+            connection = dbHelper.getConnection();
+        } catch (Exception e) {
+            System.out.println(FoodAdapter.class.getSimpleName() + " Exc: " + e.getMessage());
+        }
     }
 
+    private void btnStatusActive() {
+        btn_add.setStyle("-fx-background-color: #ffb600;" +
+                "-fx-background-radius:50;");
+        btn_add_icon.setGlyphName("CHECK");
+        btn_add_icon.setStyle("-fx-fill: #ffffff");
+    }
+
+    private void btnStatusInactive() {
+        btn_add.setStyle("-fx-background-color: #fff1d3;" +
+                "-fx-background-radius:50;");
+        btn_add_icon.setGlyphName("PLUS");
+        btn_add_icon.setStyle("-fx-fill: #522c2c");
+    }
 
     @Override
     public ImageView loadImage(String url) {
