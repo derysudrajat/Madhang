@@ -9,11 +9,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import sample.helper.Popup;
+import sample.helper.DBHelper;
 import sample.helper.UiLoaderCallback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 public class RegisterControler implements Initializable, UiLoaderCallback {
@@ -27,6 +28,8 @@ public class RegisterControler implements Initializable, UiLoaderCallback {
     @FXML
     private JFXTextField tf_nama;
     RequiredFieldValidator validator = new RequiredFieldValidator();
+    private DBHelper dbHelper = new DBHelper();
+    private Connection connection;
 
     @FXML
     void textValidate(KeyEvent event) {
@@ -48,10 +51,15 @@ public class RegisterControler implements Initializable, UiLoaderCallback {
                 tf_nama.validate();
             }else{
                 tf_nama.resetValidation();
+                dbHelper.setCustomerName(connection, tf_nama.getText());
                 loadUI("/sample/layout/table_choose_activity.fxml", main_frame);
             }
-
         });
+        try {
+            connection = dbHelper.getConnection();
+        } catch (Exception e) {
+            System.out.println(RegisterControler.class.getSimpleName() + " Exc: " + e.getMessage());
+        }
     }
 
     @Override
