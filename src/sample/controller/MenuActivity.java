@@ -17,15 +17,19 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import sample.adapter.FoodAdapter;
 import sample.entity.Foods;
+import sample.helper.DBHelper;
 import sample.helper.NotifUpdaterCallback;
 import sample.helper.UiLoaderCallback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 public class MenuActivity implements Initializable, UiLoaderCallback, EventHandler, NotifUpdaterCallback {
 
+    @FXML
+    public AnchorPane content_frame;
     @FXML
     private AnchorPane main_frame;
     @FXML
@@ -65,13 +69,15 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
     @FXML
     private JFXListView<Foods> list_view;
 
+    private int SORT;
+    private int TYPE;
     private int notifCount;
     private Foods foods;
-
-    private ObservableList<Foods> foodsObservableList;
+    private ObservableList<Foods> foodsObservableList = FXCollections.observableArrayList();
+    private DBHelper dbHelper = new DBHelper();
+    private Connection connection;
 
     public MenuActivity() {
-        loadFood();
     }
 
     @Override
@@ -81,8 +87,7 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
         btn_back.setOnAction(this::handle);
         btn_cart.setOnAction(this::handle);
         btn_pay.setOnAction(this::handle);
-        notifCount = 0;
-        btn_price.setOnAction(event -> changeGlyph());
+
         buttonSelected(btn_food, btn_juice, btn_coffee, btn_snacks);
         btn_juice.setOnAction(event -> {
             buttonSelected(btn_juice, btn_coffee, btn_food, btn_snacks);
@@ -104,6 +109,40 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
             loadSnacks();
             refreshData();
         });
+        btn_rating.setOnAction(event -> {
+            SORT = 0;
+            foodsObservableList = dbHelper.sortItemBy(connection, TYPE, SORT);
+            refreshData();
+            SORT = 1;
+        });
+        btn_price.setOnAction(event -> {
+            if (SORT == 1) {
+                changeGlyph();
+                foodsObservableList = dbHelper.sortItemBy(connection, TYPE, SORT);
+                refreshData();
+            } else {
+                changeGlyph();
+                foodsObservableList = dbHelper.sortItemBy(connection, TYPE, SORT);
+                refreshData();
+            }
+        });
+        try {
+            connection = dbHelper.getConnection();
+            txt_price.setText(dbHelper.getTotalPay(connection) + "K");
+            txt_qty.setText(String.valueOf(dbHelper.getTotalItems(connection)));
+            txt_notif.setText(String.valueOf(dbHelper.getTotalItemCart(connection)));
+        } catch (Exception e) {
+            loadUI("/sample/layout/database_error_state.fxml", content_frame);
+            System.out.println("MenuActivity Exc: " + e.getMessage());
+        }
+        if (dbHelper.getTotalItemCart(connection) != 0) {
+            notifCount = dbHelper.getTotalItemCart(connection);
+            notifAvaliable();
+        } else {
+            notifCount = 0;
+            notifUnavailable();
+        }
+        loadFood();
         refreshData();
     }
 
@@ -115,53 +154,31 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
     }
 
     private void loadJuice() {
-        foodsObservableList = FXCollections.observableArrayList();
-        foodsObservableList.addAll(
-                new Foods("Jus Tomat", "soto ayam adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Jus Kambing", "soto Kambing adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Jus Kebo", "soto kebo adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Jus Pitik", "soto pitik adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Jus Sapi", "soto sapi adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5)
-        );
+        TYPE = 2;
+        foodsObservableList = dbHelper.getListItems(connection, TYPE);
     }
 
     private void loadSnacks() {
-        foodsObservableList = FXCollections.observableArrayList();
-        foodsObservableList.addAll(
-                new Foods("Snack Tomat", "soto ayam adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Snack Kambing", "soto Kambing adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Snack Kebo", "soto kebo adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Snack Pitik", "soto pitik adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Snack Sapi", "soto sapi adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5)
-        );
+        TYPE = 1;
+        foodsObservableList = dbHelper.getListItems(connection, TYPE);
     }
 
     private void loadFood() {
-        foodsObservableList = FXCollections.observableArrayList();
-        foodsObservableList.addAll(
-                new Foods("Soto Ayam", "soto ayam adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Soto Kambing", "soto Kambing adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Soto Kebo", "soto kebo adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Soto Pitik", "soto pitik adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Soto Sapi", "soto sapi adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5)
-        );
+        TYPE = 0;
+        foodsObservableList = dbHelper.getListItems(connection, TYPE);
     }
 
     private void loadCoffee() {
-        foodsObservableList = FXCollections.observableArrayList();
-        foodsObservableList.addAll(
-                new Foods("Kopi Tomat", "soto ayam adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Kopi Kambing", "soto Kambing adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Kopi Kebo", "soto kebo adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Kopi Pitik", "soto pitik adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Kopi Sapi", "soto sapi adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5)
-        );
+        TYPE = 3;
+        foodsObservableList = dbHelper.getListItems(connection, TYPE);
     }
 
     private void changeGlyph() {
         if (icon_price.getGlyphName().equals("MENU_DOWN")) {
+            SORT = 2;
             icon_price.setGlyphName("MENU_UP");
         } else {
+            SORT = 1;
             icon_price.setGlyphName("MENU_DOWN");
         }
     }
@@ -190,12 +207,13 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
         if (notifCount > 0) {
             notifCount += 1;
             txt_notif.setText(String.valueOf(notifCount));
+            txt_price.setText(dbHelper.getTotalPrice(connection) + "K");
+            txt_qty.setText(String.valueOf(dbHelper.getTotalItems(connection)));
         } else {
-            notif_pane.setVisible(true);
-            nav_bottom.setVisible(true);
-            nav_bottom.setManaged(true);
-            list_view.setPrefHeight(254);
+            notifAvaliable();
             notifCount += 1;
+            txt_price.setText(dbHelper.getTotalPay(connection) + "K");
+            txt_qty.setText(String.valueOf(dbHelper.getTotalItems(connection)));
             txt_notif.setText(String.valueOf(notifCount));
         }
     }
@@ -203,15 +221,28 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
     @Override
     public void minItem() {
         if (notifCount < 2) {
-            notif_pane.setVisible(false);
-            nav_bottom.setVisible(false);
-            nav_bottom.setManaged(false);
-            list_view.setPrefHeight(294);
+            notifUnavailable();
             notifCount -= 1;
         } else {
             notifCount -= 1;
             txt_notif.setText(String.valueOf(notifCount));
+            txt_price.setText(dbHelper.getTotalPay(connection) + "K");
+            txt_qty.setText(String.valueOf(dbHelper.getTotalItems(connection)));
         }
+    }
+
+    private void notifAvaliable() {
+        notif_pane.setVisible(true);
+        nav_bottom.setVisible(true);
+        nav_bottom.setManaged(true);
+        list_view.setPrefHeight(254);
+    }
+
+    private void notifUnavailable() {
+        notif_pane.setVisible(false);
+        nav_bottom.setVisible(false);
+        nav_bottom.setManaged(false);
+        list_view.setPrefHeight(294);
     }
 
     @Override
