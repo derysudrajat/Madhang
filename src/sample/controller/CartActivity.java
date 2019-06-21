@@ -15,21 +15,23 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 import sample.adapter.CartAdapter;
-import sample.entity.Foods;
-import sample.helper.Popup;
-import sample.helper.UiLoaderCallback;
+import sample.entity.Cart;
+import sample.helper.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
-public class CartActivity implements Initializable, UiLoaderCallback, EventHandler {
+public class CartActivity implements Initializable, UiLoaderCallback, EventHandler, SummaryOrderCallback, ListChangedCallback {
+    @FXML
+    public AnchorPane content_frame;
     @FXML
     private AnchorPane main_frame;
     @FXML
     private JFXButton btn_back;
     @FXML
-    private JFXListView<Foods> list_view;
+    private JFXListView<Cart> list_view;
     @FXML
     private StackPane main_stackpane;
     @FXML
@@ -40,36 +42,43 @@ public class CartActivity implements Initializable, UiLoaderCallback, EventHandl
     private Text txt_qty;
     @FXML
     private JFXButton btn_pay;
-    private Foods foods;
-    private ObservableList<Foods> foodsObservableList;
+    private Cart carts;
+    private ObservableList<Cart> cartsObservableList = FXCollections.observableArrayList();
+    private DBHelper dbHelper = new DBHelper();
     private Popup pop = new Popup();
+    private Connection connection;
 
     public CartActivity() {
-        LoadData();
+
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        refreshData();
         btn_back.setOnAction(this::handle);
         btn_pay.setOnAction(this::handle);
         btn_menu.setOnAction(this::handle);
+        try {
+            connection = dbHelper.getConnection();
+            txt_price.setText(dbHelper.getTotalPay(connection) + "K");
+            txt_qty.setText(String.valueOf(dbHelper.getTotalItems(connection)));
+        } catch (Exception e) {
+            System.out.println(CartActivity.class.getSimpleName() + " Exc: " + e.getMessage());
+        }
+        LoadData();
+        if (cartsObservableList.size() == 0) {
+            loadUI("/sample/layout/empty_error_state.fxml", content_frame);
+        } else {
+            refreshData();
+        }
     }
 
     void LoadData() {
-        foodsObservableList = FXCollections.observableArrayList();
-        foodsObservableList.addAll(
-                new Foods("Jus Kambing", "soto ayam adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Jus Telur", "soto Kambing adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Jus Apa aja", "soto kebo adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Jus Itu", "soto pitik adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5),
-                new Foods("Jus Ini", "soto sapi adalah makanan yang paling enak di sini bro pokoknya kamu haru belui", 10, (float) 4.5)
-        );
+        cartsObservableList = dbHelper.getItemsCart(connection);
     }
 
     void refreshData() {
-        list_view.setItems(foodsObservableList);
-        list_view.setCellFactory(foodListView -> new CartAdapter(list_view, main_stackpane));
+        list_view.setItems(cartsObservableList);
+        list_view.setCellFactory(foodListView -> new CartAdapter(list_view, main_stackpane, this));
     }
 
     @Override
@@ -89,11 +98,23 @@ public class CartActivity implements Initializable, UiLoaderCallback, EventHandl
             loadUI("/sample/layout/menu_activity.fxml", main_frame);
         }
         if (et.equals(btn_menu)) {
-            foods = list_view.getSelectionModel().getSelectedItem();
-            pop.poup2Menu(main_stackpane, btn_menu, "Delete      ", "Delete All ", foods);
+            carts = list_view.getSelectionModel().getSelectedItem();
+            pop.poup2MenuCart(main_stackpane, btn_menu, "Delete      ", "Delete All ", carts);
         }
         if (et.equals(btn_pay)) {
             loadUI("/sample/layout/payment_activity.fxml", main_frame);
         }
+    }
+
+    @Override
+    public void summaryChanged() {
+        txt_price.setText(dbHelper.getTotalPay(connection) + "K");
+        txt_qty.setText(String.valueOf(dbHelper.getTotalItems(connection)));
+    }
+
+    @Override
+    public void listChanged() {
+        LoadData();
+        refreshData();
     }
 }
