@@ -198,6 +198,10 @@ public class MenuActivity implements Initializable, UiLoaderCallback, EventHandl
             loadUI("/sample/layout/cart_activity.fxml", main_frame);
         }
         if (et.equals(btn_pay)) {
+            int id = dbHelper.getIdCustomer(connection);
+            int pay = dbHelper.getTotalPay(connection);
+            int items = dbHelper.getTotalItems(connection);
+            dbHelper.setCustomerPay(connection, items, pay, id);
             loadUI("/sample/layout/payment_activity.fxml", main_frame);
         }
     }
