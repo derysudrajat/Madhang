@@ -6,6 +6,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import sample.entity.Cart;
 import sample.entity.Foods;
 
 public class Popup {
@@ -78,7 +79,47 @@ public class Popup {
         popup.show(manuButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT);
     }
 
+    public void poup2MenuCart(StackPane stackPane, JFXButton manuButton, String menu1, String menu2, Cart foods) {
+        JFXPopup popup = new JFXPopup(manuButton);
+        JFXButton btnMenu1 = new JFXButton(menu1);
+        JFXButton btnMenu2 = new JFXButton(menu2);
+        btnMenu1.setPadding(new Insets(10, 50, 10, 10));
+        btnMenu2.setPadding(new Insets(10, 50, 10, 10));
+        VBox vBox = new VBox(btnMenu1, btnMenu2);
+        btnMenu1.setOnAction(event -> {
+            if (foods != null) {
+                poup2Dialog(stackPane, "Hapus Item", "Apakah anda ingin menghapus " + foods.getName(),
+                        "IYA", "TIDAK", "Berhasil", foods.getName() + " berhasil di hapus", "OK");
+            } else {
+                toast(stackPane, "Silakan pilih item terlebih dahulu");
+            }
+        });
+        btnMenu2.setOnAction(event -> {
+            String message = "Menu 2 Pressed";
+            System.out.println(message);
+            poup2Dialog(stackPane, "Hapus Item", "Apakah anda ingin menghapus \nsemuaitem dalam keranjang?",
+                    "IYA", "TIDAK", "Berhasil", "Item berhasil di hapus", "OK");
+        });
+        popup.setPopupContent(vBox);
+        popup.setAutoHide(true);
+        popup.show(manuButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT);
+    }
+
     public void poupMenu(StackPane stackPane, JFXButton manuButton, String menu, Foods foods) {
+        JFXPopup popup = new JFXPopup(manuButton);
+        JFXButton btnMenu = new JFXButton(menu);
+        btnMenu.setPadding(new Insets(10, 50, 10, 10));
+        VBox vBox = new VBox(btnMenu);
+        btnMenu.setOnAction(event -> {
+            poup2Dialog(stackPane, "Hapus Item", "Apakah anda ingin menghapus " + foods.getName() + "?",
+                    "IYA", "TIDAK", "Berhasil", foods.getName() + " berhasil di hapus", "OK");
+        });
+        popup.setPopupContent(vBox);
+        popup.setAutoHide(true);
+        popup.show(manuButton, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT);
+    }
+
+    public void poupMenuCart(StackPane stackPane, JFXButton manuButton, String menu, Cart foods) {
         JFXPopup popup = new JFXPopup(manuButton);
         JFXButton btnMenu = new JFXButton(menu);
         btnMenu.setPadding(new Insets(10, 50, 10, 10));
