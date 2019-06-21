@@ -6,4 +6,6 @@ import javafx.fxml.FXML;
 public class EmptyErrorState {
     @FXML
     private JFXButton btn_add_items;
+    private CartActivity mContext;
+
 }
