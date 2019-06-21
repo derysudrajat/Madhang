@@ -10,11 +10,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
+import sample.helper.DBHelper;
 import sample.helper.Popup;
 import sample.helper.UiLoaderCallback;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 
 public class TableChooseActivity implements Initializable, UiLoaderCallback, EventHandler {
@@ -28,12 +30,19 @@ public class TableChooseActivity implements Initializable, UiLoaderCallback, Eve
     String nomor_kursi = null;
     @FXML
     private StackPane main_Stackpane;
+    private DBHelper dbHelper = new DBHelper();
+    private Connection connection;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         btn_done.setOnAction(this::handle);
         btn_back.setOnAction(this::handle);
+        try {
+            connection = dbHelper.getConnection();
+        } catch (Exception e) {
+            System.out.println(TableChooseActivity.class.getSimpleName() + " Exc: " + e.getMessage());
+        }
     }
 
     @Override
@@ -65,6 +74,8 @@ public class TableChooseActivity implements Initializable, UiLoaderCallback, Eve
         if (event.getTarget().equals(btn_done)) {
             if (nomor_kursi != null) {
                 System.out.println("Nomor Kursi : " + nomor_kursi);
+                int id = dbHelper.getIdCustomer(connection);
+                dbHelper.setChairNum(connection, Integer.parseInt(nomor_kursi), id);
                 loadUI("/sample/layout/menu_activity.fxml", main_frame);
             } else {
                 p.toast(main_Stackpane, "Silakan pilih meja terlebih dahulu");
