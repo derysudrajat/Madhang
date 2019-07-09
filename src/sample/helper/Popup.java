@@ -118,7 +118,7 @@ public class Popup implements Initializable {
                 } catch (Exception e) {
                     System.out.println("GetConnection Error");
                 }
-                dbHelper.addtoCustomerLog(connection, mCustomer);
+                dbHelper.addtoCustomerLog(connection, mCustomer); //trigger
                 dbHelper.deleteLastCustomer(connection);
                 dbHelper.deleteAllItemsCart(connection);
                 confirmPayment(stackPane, mContext, anchorPane, tittle2, body2, txtConfirm);
