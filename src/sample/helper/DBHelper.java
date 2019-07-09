@@ -166,37 +166,6 @@ public class DBHelper {
         return id;
     }
 
-    public String getNameCustomer(Connection connection) {
-        String query = "SELECT name FROM customer ORDER BY id_customer DESC LIMIT 1";
-        String name = null;
-        ResultSet resultSet;
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                name = resultSet.getString("name");
-            }
-        } catch (Exception e) {
-            System.out.println("DBHelper Exc : " + e.getMessage());
-        }
-        return name;
-    }
-
-    public int getChairCustomer(Connection connection) {
-        String query = "SELECT kursi FROM customer ORDER BY id_customer DESC LIMIT 1";
-        int chair = 0;
-        ResultSet resultSet;
-        try {
-            PreparedStatement statement = connection.prepareStatement(query);
-            resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                chair = resultSet.getInt("kursi");
-            }
-        } catch (Exception e) {
-            System.out.println("DBHelper Exc : " + e.getMessage());
-        }
-        return chair;
-    }
 
     public void setChairNum(Connection connection, int chair, int id) {
         try {
@@ -223,17 +192,6 @@ public class DBHelper {
         }
     }
 
-    public void updatePrice(Connection connection, Cart mCart) {
-        try {
-            String query2 = "UPDATE cart SET price = ? WHERE id_chart = ?";
-            PreparedStatement statement = connection.prepareStatement(query2);
-            statement.setInt(1, mCart.getTotalPrice());
-            statement.setInt(2, mCart.getId());
-            statement.executeUpdate();
-        } catch (Exception e) {
-
-        }
-    }
 
     public void updateQty(Connection connection, Cart mCart) {
         try {
