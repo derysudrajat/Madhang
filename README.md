@@ -1,6 +1,6 @@
 # Madhang
 This project about app to help order menu by itself in restaurant.
-This project built using `Java` as main Language, and this priject purpose
+This project built using `Java` as main Language, and this project purpose
 for my Advance Database exam.
 
 ## Getting Started
