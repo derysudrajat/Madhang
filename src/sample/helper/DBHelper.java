@@ -23,6 +23,13 @@ public class DBHelper {
         return connection;
     }
 
+    /***
+     * getListItems adalah procedure untuk mendapatkan list item berdasarkan type
+     * pada tabel items
+     * @param connection
+     * @param type 1 (Food), 2 (Snack), 3 (Juice), 4 (Coffee)
+     * @return
+     */
     public ObservableList<Foods> getListItems(Connection connection, int type) {
         String query = "SELECT * FROM items WHERE type=?";
         ResultSet resultSet;
@@ -50,6 +57,12 @@ public class DBHelper {
         return mList;
     }
 
+    /**
+     * getItemsCart adalah procedure untuk mendapatkan item yang berada pada cart
+     *
+     * @param connection
+     * @return
+     */
     public ObservableList<Cart> getItemsCart(Connection connection) {
         String query = "SELECT * FROM cart";
         ResultSet resultSet;
@@ -74,7 +87,14 @@ public class DBHelper {
         return mList;
     }
 
-
+    /**
+     * sortItemBy adalah procedure untuk mengurutkan items berdasarkan rate, price secara
+     * Ascending `ASC` dan Descending `DESC`
+     * @param connection
+     * @param type
+     * @param order
+     * @return
+     */
     public ObservableList<Foods> sortItemBy(Connection connection, int type, int order) {
         String query = null;
         switch (order) {
@@ -113,6 +133,12 @@ public class DBHelper {
         return mList;
     }
 
+    /**
+     * getLastCustomer adalah procedure untuk mendapatkan data customer yang paling
+     * terakhir memasukan data di database
+     * @param connection
+     * @return
+     */
     public Customer getLastCustomer(Connection connection) {
         String query = "SELECT * FROM customer ORDER BY id_customer DESC LIMIT 1";
         ResultSet resultSet;
@@ -137,6 +163,12 @@ public class DBHelper {
         return mCustomer;
     }
 
+    /**
+     * setCustomerName adalah procedure untuk memasukan data nama dan status
+     * pada tabel customer, ketika customer memasukan data pada RegisterActivity
+     * @param connection
+     * @param name
+     */
     public void setCustomerName(Connection connection, String name) {
         try {
             String query = "INSERT INTO customer (name, stat) VALUES (?,?)";
@@ -149,7 +181,12 @@ public class DBHelper {
         }
     }
 
-
+    /***
+     * getIdCustomer adalah function untuk mendapatkan id_customer pada tabel Customer
+     * pada customer paling terakhir memasukan data
+     * @param connection
+     * @return
+     */
     public int getIdCustomer(Connection connection) {
         String query = "SELECT id_customer FROM customer ORDER BY id_customer DESC LIMIT 1";
         int id = 0;
@@ -166,7 +203,13 @@ public class DBHelper {
         return id;
     }
 
-
+    /**
+     * setChairNum adalah procedure untuk insert nomor kursi customer pada tabel customer
+     * ketika customer memasukan data kursi pada ChooseTableActivity
+     * @param connection
+     * @param chair
+     * @param id
+     */
     public void setChairNum(Connection connection, int chair, int id) {
         try {
             String query2 = "UPDATE customer SET kursi = ? WHERE id_customer = ?";
@@ -179,6 +222,14 @@ public class DBHelper {
         }
     }
 
+    /**
+     * setCustomerPay adalah procedure untuk memasukan data total pemabayaran dan total item
+     * yang sudah di beli customer pada PaymentActivity
+     * @param connection
+     * @param item
+     * @param pay
+     * @param id
+     */
     public void setCustomerPay(Connection connection, int item, int pay, int id) {
         try {
             String query2 = "UPDATE customer SET items = ?, total = ? WHERE id_customer = ?";
@@ -192,7 +243,12 @@ public class DBHelper {
         }
     }
 
-
+    /**
+     * updateQty adalah procedure untuk mengatur data `qty` pada list item yang terdapat pada
+     * CartActivity
+     * @param connection
+     * @param mCart
+     */
     public void updateQty(Connection connection, Cart mCart) {
         try {
             String query2 = "UPDATE cart SET qty = ? WHERE id_chart = ?";
@@ -205,6 +261,13 @@ public class DBHelper {
         }
     }
 
+    /**
+     * updateStatus adalah procedure untuk mengatur status item mana yang sudah dipilih atau belum
+     * pada MenuActivity
+     * @param connection
+     * @param id
+     * @param stat
+     */
     public void updateStatus(Connection connection, int id, int stat) {
         try {
             String query = "UPDATE items SET status = ? WHERE id_items = ?";
@@ -217,6 +280,11 @@ public class DBHelper {
         }
     }
 
+    /**
+     * setStatustoDefault adalah pocedure untuk mengatur ulang status pada item kemabali ke `0`
+     * artinya items belum ada yang di pilih
+     * @param connection
+     */
     public void setStatustoDefault(Connection connection) {
         try {
             String query = "UPDATE items SET status = ?";
@@ -228,6 +296,13 @@ public class DBHelper {
         }
     }
 
+    /**
+     * addItemstoCart adalah procedure untuk memasukan data items ke tabel cart pada
+     * MenuActivity
+     * @param connection
+     * @param foods
+     * @param qty
+     */
     public void addItemstoCart(Connection connection, Foods foods, int qty) {
         try {
             String query = "INSERT INTO cart (id_chart,img_url, name, price, qty) VALUES (?,?,?,?,?)";
@@ -242,6 +317,13 @@ public class DBHelper {
             System.out.println("DBHelper Exc : " + e.getMessage());
         }
     }
+
+    /***
+     * addItemstoCart adalah trigger after delete yang dimana akan aktif ketika ada aktivitas
+     * penghapusan pada tabel customer dan akan menyimpan data pada tabel customerLog
+     * @param connection
+     * @param mCustomer
+     */
 
     public void addtoCustomerLog(Connection connection, Customer mCustomer) {
         try {
@@ -259,6 +341,12 @@ public class DBHelper {
         }
     }
 
+    /**
+     * deleteItemsCartbyId adalah procedure untuk menghapus data item cart
+     * berdasarkan id
+     * @param connection
+     * @param id
+     */
     public void deleteItemsCartbyId(Connection connection, int id) {
         try {
             String query = "DELETE FROM cart WHERE id_chart = ?";
@@ -270,6 +358,10 @@ public class DBHelper {
         }
     }
 
+    /**
+     * deleteLastCustomer adalah procedure untuk menghapus data customer paling akhir.
+     * @param connection
+     */
     public void deleteLastCustomer(Connection connection) {
         try {
             String query = "DELETE FROM customer ORDER BY id_customer DESC LIMIT 1";
@@ -280,6 +372,10 @@ public class DBHelper {
         }
     }
 
+    /**
+     * deleteAllItemsCart adalah procedure untuk menghapus semua items yang ada pada tabel cart
+     * @param connection
+     */
     public void deleteAllItemsCart(Connection connection) {
         try {
             String query = "DELETE FROM cart";
@@ -290,6 +386,11 @@ public class DBHelper {
         }
     }
 
+    /**
+     * adalah function untuk mendapatkan total harga pada setiap items yang ada pada tabel cart
+     * @param connection
+     * @return
+     */
     public int getTotalPrice(Connection connection) {
         String query = "SELECT SUM(price) AS 'total' FROM cart";
         int total = 0;
@@ -306,6 +407,12 @@ public class DBHelper {
         return total;
     }
 
+    /**
+     * getTotalPay adalah function untuk mendapatkan total harga dari semua items yang ada pada tabel
+     * cart
+     * @param connection
+     * @return
+     */
     public int getTotalPay(Connection connection) {
         String query = "SELECT SUM(price*qty) AS 'total' FROM cart";
         int total = 0;
@@ -322,6 +429,11 @@ public class DBHelper {
         return total;
     }
 
+    /**
+     * getTotalItems adalah function untuk mendapatkan total items yang telah di pesan
+     * @param connection
+     * @return
+     */
     public int getTotalItems(Connection connection) {
         String query = "SELECT SUM(qty) AS 'total' FROM cart";
         int total = 0;
@@ -337,6 +449,12 @@ public class DBHelper {
         }
         return total;
     }
+
+    /**
+     * getTotalItemCart adalah function yang mendapatkan berapa item pada cart yang sudah di pilih
+     * @param connection
+     * @return
+     */
 
     public int getTotalItemCart(Connection connection) {
         String query = "SELECT COUNT(id_chart) AS 'total' FROM cart";
