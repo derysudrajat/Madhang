@@ -16,7 +16,7 @@ you can download the table and all query bellow
 * [Download madhang.sql](/res/db/madhang.sql)
 * Import .sql to database, make sure you selected database before import it.
 
-![Import](/res/screenshot/import.jpg) 
+![Import](res/screenshot/import.jpg) 
 
 * Download All Library
     1. [Fontawesomefx-8.9](/lib/fontawesomefx-8.9.jar)
@@ -25,10 +25,10 @@ you can download the table and all query bellow
     4. [Mysql-Connector-java-8.0.11](/lib/mysql-connector-java-8.0.11.jar)
 * Setup your project by choose `File > Project Structure...`
 
-![settup](/res/screenshot/setting.jpg)
+![settup](res/screenshot/setting.jpg)
 
 * Add whole library to module
 
-![Add to module](/res/screenshot/module.jpg) 
+![Add to module](res/screenshot/module.jpg) 
 
 Finish and enjoy...
