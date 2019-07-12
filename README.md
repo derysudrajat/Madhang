@@ -12,7 +12,9 @@ follow the instruction bellow to create databases
 ```
 
 you can download the table and all query bellow
-
+* Recomended to [Download Intellij IDEA](https://www.jetbrains.com/idea/download/), if you already install you can skip
+* [Download Git](https://git-scm.com/downloads) (Optional)
+* [Download XAMPP](https://www.apachefriends.org/download.html)
 * [Download madhang.sql](/res/db/madhang.sql)
 * Import .sql to database, make sure you selected database before import it.
 
